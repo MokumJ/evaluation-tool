@@ -1,15 +1,19 @@
-
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import likeStudent from '../actions/students/like'
-import LikeButton from '../components/LikeButton'
-import StudentCategory from './StudentCategory'
 import Title from '../components/Title'
-import './StudentItem.css'
+import './Batch.css'
+import '../students/StudentEditor'
 
 const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
+
+const studentShape = PropTypes.shape({
+  evaluations: PropTypes.arrayOf(PropTypes.object),
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  batchNo: PropTypes.string.isRequired
+})
 
 export class Batch extends PureComponent {
   static propTypes = {
@@ -23,7 +27,7 @@ export class Batch extends PureComponent {
       })
   }
     componentWillMount() {
-      const { batchNo} = this.props
+      const { batchNo } = this.props
 
         //pickRandom Student function
   }
@@ -31,6 +35,7 @@ export class Batch extends PureComponent {
   render() {
     const { batch } = this.props
 
+    this.props.fetchOneBatch(batchId)
 
 
     return(
@@ -43,7 +48,7 @@ export class Batch extends PureComponent {
             className="cover"
             style={{ backgroundImage: `url(${photo || PLACEHOLDER })` }} />
           <Link to={`/students/${_id}`}>
-            <Title content={title} className="level-2" />
+            <Title content={batchNo._id} className="level-2" />
           </Link>
           <ul className="categories">
 
@@ -51,6 +56,7 @@ export class Batch extends PureComponent {
         </header>
         <StudentEditor batchNo= { batch._id}/>
         <div>
+
           <p>{ summary }</p>
         </div>
         <footer>
@@ -61,6 +67,7 @@ export class Batch extends PureComponent {
   }
 }
 
-const mapDispatchToProps = { toggleLike: likeStudent }
+    const mapStateToProps = ({ batch }
 
-export default connect(null, mapDispatchToProps)(StudentItem)
+
+  export default connect(mapStateToProps, { fetchOneBatch })(Batch)
