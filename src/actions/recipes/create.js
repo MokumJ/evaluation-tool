@@ -1,9 +1,32 @@
-// src/actions/recipes/create.js
-export const CREATE_RECIPE = 'CREATE_RECIPE'
 
-export default (newRecipe) => {
-  return {
-    type: CREATE_RECIPE,
-    payload: newRecipe
+import ApiClient from '../../api/client'
+import {
+  APP_LOADING,
+  APP_DONE_LOADING,
+  LOAD_ERROR,
+  LOAD_SUCCESS
+} from '../loading'
+
+
+
+
+const api = new ApiClient()
+
+export default () => {
+  return (dispatch) => {
+    dispatch({ type: APP_LOADING })
+
+    api.post('/games', {})
+      .then(() => {
+        dispatch({ type: APP_DONE_LOADING })
+        dispatch({ type: LOAD_SUCCESS })
+      })
+      .catch((error) => {
+        dispatch({ type: APP_DONE_LOADING })
+        dispatch({
+          type: LOAD_ERROR,
+          payload: error.message
+        })
+      })
   }
 }
