@@ -1,44 +1,43 @@
 // src/students/StudentsContainer.js
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetch as fetchStudents } from '../actions/students'
+import { fetch as fetchBatches } from '../actions/batches'
 import Title from '../components/Title'
-import StudentItem from './StudentItem'
-import StudentEditor from './StudentEditor'
-import './StudentsContainer.css'
 
-class StudentsContainer extends PureComponent {
-  componentWillMount() {
-    this.props.dispatch(fetchStudents())
-  }
+import BatchEditor from './BatchEditor'
+import './BatchContainer.css'
 
-  renderStudent(student, index) {
-    return (
-      <StudentItem key={index} {...student} />
-    )
-  }
+export class BatchesContainer extends PureComponent {
+  static propTypes = {
+  signedIn: PropTypes.bool,
+ }
 
+  componentWillMount()
+    { this.props.fetchBatches() }
+      goToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
   render() {
-    const { students } = this.props
+    if (!this.props.signedIn) return <SignIn />
 
-    if (!students) { return null }
+    if (!batches) { return null }
 
     return(
       <div className="StudentsContainer">
-        <StudentEditor />
+        <BatchEditor />
 
         <header>
-          <Title content="All Students" />
+          <Title content="All Batches" />
         </header>
 
         <main>
-          {students.map(this.renderStudent)}
+          {batches.map(this.renderBatchs)}
         </main>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ students }) => ({ students })
+const mapStateToProps = ({ batches }) => ({ students })
+const mapDispatchToProps = { fetchBatches, push }
 
-export default connect(mapStateToProps)(StudentsContainer)
+
+export default connect(mapStateToProps, mapDispatchToProps)(BatchesContainer)
