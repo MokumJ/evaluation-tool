@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import LikeButton from '../components/LikeButton'
-import RecipeCategory from './RecipeCategory'
+import StudentCategory from './StudentCategory'
 import Title from '../components/Title'
 
   const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 
-  class RecipeItem extends PureComponent {
+  class StudentItem extends PureComponent {
     static propTypes = {
       title: PropTypes.string.isRequired,
       summary: PropTypes.string.isRequired,
@@ -21,14 +21,14 @@ import Title from '../components/Title'
       const categories = { vegan, vegetarian, pescatarian }
 
       return(
-        <article className="RecipeItem">
+        <article className="StudentItem">
           <header>
             <div
               className="cover"
               style={{ backgroundImage: `url(${photo || PLACEHOLDER })` }} />
             <Title content={title} className="level-2" />
             <ul className="categories">
-              <RecipeCategory { ...categories } />
+              <StudentCategory { ...categories } />
             </ul>
           </header>
 
@@ -43,4 +43,4 @@ import Title from '../components/Title'
     }
   }
 
-  export default RecipeItem
+  export default StudentItem

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Pescatarian from '../img/pescatarian.svg'
 import Vegetarian from '../img/vegetarian.svg'
 import Vegan from '../img/vegan.svg'
-import './RecipeCategory.sass'
+import './StudentCategory.sass'
 
-class RecipeCategory extends PureComponent {
+class StudentCategory extends PureComponent {
   static propTypes = {
     vegan: PropTypes.bool,
     vegetarian: PropTypes.bool,
@@ -35,7 +35,7 @@ class RecipeCategory extends PureComponent {
   classNames() {
     const { vegan, vegetarian, pescatarian } = this.props
 
-    const baseClass = 'RecipeCategory'
+    const baseClass = 'StudentCategory'
 
     if (vegan) return baseClass + ' vegan'
     if (vegetarian) return baseClass + ' vegetarian'
@@ -58,4 +58,4 @@ class RecipeCategory extends PureComponent {
   }
 }
 
-export default RecipeCategory
+export default StudentCategory

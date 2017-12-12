@@ -1,8 +1,8 @@
 // src/reducers/index.js
-import recipes from './recipes'
+import students from './students'
 import currentUser from './currentUser'
 
 export default {
-  recipes,
+  students,
   currentUser,
 }

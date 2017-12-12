@@ -1,4 +1,4 @@
-import { CREATE_RECIPE } from '../actions/recipes/create'
+import { CREATE_RECIPE } from '../actions/students/create'
 
   export default (state = initialState, { type, payload } = {}) => {
     switch(type) {
