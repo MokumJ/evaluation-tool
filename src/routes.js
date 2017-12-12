@@ -6,13 +6,15 @@ import StudentsContainer from './students/StudentsContainer'
 import StudentPage from './students/StudentPage'
 import SignIn from './users/SignIn'
 import SignUp from './users/SignUp'
+import BatchesContainer from './batches/BatchesContainer'
+import Batch from '/batches/Batch'
 
 export default class Routes extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" component={StudentsContainer} />
-        <Route path="/students/:studentId" component={StudentPage} />
+        <Route exact path="/"  component={BatchesContainer} />
+        <Route path="/batches/:batchId" component={Batch} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-up" component={SignUp} />
       </div>
