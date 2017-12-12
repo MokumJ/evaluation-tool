@@ -1,44 +1,44 @@
-// src/recipes/RecipesContainer.js
+// src/students/StudentsContainer.js
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetch as fetchRecipes } from '../actions/recipes'
+import { fetch as fetchStudents } from '../actions/students'
 import Title from '../components/Title'
-import RecipeItem from './RecipeItem'
-import RecipeEditor from './RecipeEditor'
-import './RecipesContainer.css'
+import StudentItem from './StudentItem'
+import StudentEditor from './StudentEditor'
+import './StudentsContainer.css'
 
-class RecipesContainer extends PureComponent {
+class StudentsContainer extends PureComponent {
   componentWillMount() {
-    this.props.dispatch(fetchRecipes())
+    this.props.dispatch(fetchStudents())
   }
 
-  renderRecipe(recipe, index) {
+  renderStudent(student, index) {
     return (
-      <RecipeItem key={index} {...recipe} />
+      <StudentItem key={index} {...student} />
     )
   }
 
   render() {
-    const { recipes } = this.props
+    const { students } = this.props
 
-    if (!recipes) { return null }
+    if (!students) { return null }
 
     return(
-      <div className="RecipesContainer">
-        <RecipeEditor />
+      <div className="StudentsContainer">
+        <StudentEditor />
 
         <header>
-          <Title content="All Recipes" />
+          <Title content="All Students" />
         </header>
 
         <main>
-          {recipes.map(this.renderRecipe)}
+          {students.map(this.renderStudent)}
         </main>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ recipes }) => ({ recipes })
+const mapStateToProps = ({ students }) => ({ students })
 
-export default connect(mapStateToProps)(RecipesContainer)
+export default connect(mapStateToProps)(StudentsContainer)

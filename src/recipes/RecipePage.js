@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetch as fetchRecipes } from '../actions/recipes'
+import { fetch as fetchStudents } from '../actions/students'
 import Title from '../components/Title'
 
-export class RecipePage extends PureComponent {
+export class StudentPage extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
   }
 
   componentWillMount() {
-    this.props.fetchRecipes()
+    this.props.fetchStudents()
   }
 
   render() {
@@ -19,24 +19,24 @@ export class RecipePage extends PureComponent {
     if (!title) return null
 
     return(
-      <div className="recipe page">
+      <div className="student page">
         <Title content={ title } />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ recipes }, { match }) => {
-  const recipe = recipes.reduce((prev, next) => {
-    if (next._id === match.params.recipeId) {
+const mapStateToProps = ({ students }, { match }) => {
+  const student = students.reduce((prev, next) => {
+    if (next._id === match.params.studentId) {
       return next
     }
     return prev
   }, {})
 
   return {
-    ...recipe
+    ...student
   }
 }
 
-export default connect(mapStateToProps, { fetchRecipes })(RecipePage)
+export default connect(mapStateToProps, { fetchStudents })(StudentPage)

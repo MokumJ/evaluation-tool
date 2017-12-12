@@ -1,12 +1,12 @@
-// src/recipes/RecipeEditor.js
+// src/students/StudentEditor.js
 import React, { PureComponent } from 'react'
 import Editor from 'react-medium-editor'
 import toMarkdown from 'to-markdown'
 import { connect } from 'react-redux'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
-import createRecipe from '../actions/recipes/create'
-import './RecipeEditor.css'
+import createStudent from '../actions/students/create'
+import './StudentEditor.css'
 
 const TYPES = [
   'vegan',
@@ -14,7 +14,7 @@ const TYPES = [
   'pescatarian'
 ]
 
-class RecipeEditor extends PureComponent {
+class StudentEditor extends PureComponent {
   constructor(props) {
     super()
 
@@ -61,18 +61,18 @@ class RecipeEditor extends PureComponent {
     })
   }
 
-  saveRecipe() {
+  saveStudent() {
     console.table(this.state)
 
-    const recipe = {
+    const student = {
       ...this.state,
       summary: toMarkdown(this.state.summary),
       liked: false
     }
 
-    console.table(recipe)
+    console.table(student)
 
-    this.props.save(recipe)
+    this.props.save(student)
   }
 
   render() {
@@ -112,13 +112,13 @@ class RecipeEditor extends PureComponent {
         })}
 
         <div className="actions">
-          <button className="primary" onClick={this.saveRecipe.bind(this)}>Save</button>
+          <button className="primary" onClick={this.saveStudent.bind(this)}>Save</button>
         </div>
       </div>
     )
   }
 }
 
-const mapDispatchToProps = { save: createRecipe }
+const mapDispatchToProps = { save: createStudent }
 
-export default connect(null, mapDispatchToProps)(RecipeEditor)
+export default connect(null, mapDispatchToProps)(StudentEditor)

@@ -1,4 +1,4 @@
-article.RecipeItem {
+article.StudentItem {
   flex: 1;
   border-radius: .1em;
   overflow: hidden;
@@ -9,27 +9,27 @@ article.RecipeItem {
   background-color: #fff;
   padding: 2.2em; }
   @media (min-width: 769px) {
-    article.RecipeItem {
+    article.StudentItem {
       margin: .8em;
       min-width: calc(45% - 4.4rem);
       flex-shrink: 1; } }
-  article.RecipeItem main, article.RecipeItem footer {
+  article.StudentItem main, article.StudentItem footer {
     padding: 10px 0;
     min-width: calc(100% - 1.6rem); }
-  article.RecipeItem footer {
+  article.StudentItem footer {
     align-items: flex-end;
     display: flex;
     flex: 1; }
-  article.RecipeItem header .cover {
+  article.StudentItem header .cover {
     height: 280px;
     background-size: cover;
     background-position: center center;
     overflow: hidden;
     margin-bottom: 54px; }
-    article.RecipeItem header .cover img {
+    article.StudentItem header .cover img {
       height: 280px; }
-  article.RecipeItem header h1 {
+  article.StudentItem header h1 {
     margin: 20px 0; }
-  article.RecipeItem .categories {
+  article.StudentItem .categories {
     margin: -60px 20px 0 0;
     float: right; }

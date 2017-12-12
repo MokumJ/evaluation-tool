@@ -1,17 +1,17 @@
-// src/recipes/RecipeItem.js
+// src/students/StudentItem.js
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import likeRecipe from '../actions/recipes/like'
+import likeStudent from '../actions/students/like'
 import LikeButton from '../components/LikeButton'
-import RecipeCategory from './RecipeCategory'
+import StudentCategory from './StudentCategory'
 import Title from '../components/Title'
-import './RecipeItem.css'
+import './StudentItem.css'
 
 const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 
-class RecipeItem extends PureComponent {
+class StudentItem extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
@@ -30,16 +30,16 @@ class RecipeItem extends PureComponent {
     const categories = { vegan, vegetarian, pescatarian }
 
     return(
-      <article className="RecipeItem">
+      <article className="StudentItem">
         <header>
           <div
             className="cover"
             style={{ backgroundImage: `url(${photo || PLACEHOLDER })` }} />
-          <Link to={`/recipes/${_id}`}>
+          <Link to={`/students/${_id}`}>
             <Title content={title} className="level-2" />
           </Link>
           <ul className="categories">
-            <RecipeCategory { ...categories } />
+            <StudentCategory { ...categories } />
           </ul>
         </header>
 
@@ -54,6 +54,6 @@ class RecipeItem extends PureComponent {
   }
 }
 
-const mapDispatchToProps = { toggleLike: likeRecipe }
+const mapDispatchToProps = { toggleLike: likeStudent }
 
-export default connect(null, mapDispatchToProps)(RecipeItem)
+export default connect(null, mapDispatchToProps)(StudentItem)
