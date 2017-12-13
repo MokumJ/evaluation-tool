@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Title from '../components/Title'
@@ -12,7 +13,7 @@ const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  batchNo: PropTypes.string.isRequired
+  batchId: PropTypes.string.isRequired
 })
 
 export class Batch extends PureComponent {
@@ -27,16 +28,17 @@ export class Batch extends PureComponent {
       })
   }
     componentWillMount() {
-      const { batchNo } = this.props
-
+      const { batchId } = this.props
+      this.props.fetchOneBatch(batchId)
         //pickRandom Student function
   }
 
   render() {
     const { batch } = this.props
 
-    this.props.fetchOneBatch(batchId)
 
+
+    if (!batch) return null
 
     return(
       // student list
@@ -48,16 +50,13 @@ export class Batch extends PureComponent {
             className="cover"
             style={{ backgroundImage: `url(${photo || PLACEHOLDER })` }} />
           <Link to={`/students/${_id}`}>
-            <Title content={batchNo._id} className="level-2" />
+            <Title content={batchId._id} className="level-2" />
           </Link>
-          <ul className="categories">
 
-          </ul>
         </header>
-        <StudentEditor batchNo= { batch._id}/>
+        <StudentEditor batchId= { batch._id}/>
         <div>
 
-          <p>{ summary }</p>
         </div>
         <footer>
 
@@ -67,7 +66,7 @@ export class Batch extends PureComponent {
   }
 }
 
-    const mapStateToProps = ({ batch }
+  const mapStateToProps = ({ batches }
 
 
-  export default connect(mapStateToProps, { fetchOneBatch })(Batch)
+  export default connect(mapStateToProps, { fetchOneBatch, push })(Batch)

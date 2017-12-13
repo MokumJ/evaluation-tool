@@ -1,4 +1,4 @@
-// src/students/StudentsContainer.js
+
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { fetchBatches } from '../actions/batches'
@@ -15,10 +15,15 @@ export class BatchesContainer extends PureComponent {
  }
 
   componentWillMount()
-    { this.props.fetchBatches() }
+    { this.props.dispatch(fetchBatches()) }
 
       linkToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
-      
+
+      renderBatches(batch, index) {
+        return (
+          <batch key={index} {...batch} />
+        )
+      }
   render() {
     if (!this.props.signedIn) return <SignIn />
 
@@ -31,8 +36,8 @@ export class BatchesContainer extends PureComponent {
         </header>
 
         <main>
-          {batches.map(this.renderBatches)}
-          onClick={this.goToBatch(batch._id)}
+          {this.props.batches.map(this.renderBatch)}
+    
         </main>
       </div>
     )

@@ -3,20 +3,20 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { fetch as fetchStudents } from '../actions/students'
 import Title from '../components/Title'
-import StudentItem from './StudentItem'
+
 import StudentEditor from './StudentEditor'
-import './StudentsContainer.css'
+import './StudentContainer.css'
 
 class StudentsContainer extends PureComponent {
   componentWillMount() {
     this.props.dispatch(fetchStudents())
   }
 
-  renderStudent(student, index) {
-    return (
-      <StudentItem key={index} {...student} />
-    )
-  }
+
+
+
+
+
 
   render() {
     const { students } = this.props
