@@ -15,7 +15,7 @@ export class BatchesContainer extends PureComponent {
  }
 
   componentWillMount()
-    { this.props.dispatch(fetchBatches()) }
+{ this.props.fetchBatches() }
 
       linkToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
 
@@ -36,8 +36,8 @@ export class BatchesContainer extends PureComponent {
         </header>
 
         <main>
-          {this.props.batches.map(this.renderBatch)}
-    
+          {this.props.batches.map(this.renderBatches)}
+
         </main>
       </div>
     )
