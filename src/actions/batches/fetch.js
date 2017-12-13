@@ -14,14 +14,14 @@ export default () => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-  api.get('/batches')
-    .then((result) => {
+  api.get('batches')
+    .then((res) => {
       dispatch({ type: APP_DONE_LOADING })
       dispatch({ type: LOAD_SUCCESS })
 
       dispatch({
         type: FETCHED_BATCHES,
-        payload: result.body
+        payload: res.body
       })
     })
     .catch((error) => {
@@ -38,14 +38,14 @@ export const fetchOneBatch= (batchId) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-  api.get(`/batches/${batchId}`)
-    .then((result) => {
+  api.get(`batches/${batchId}`)
+    .then((res) => {
       dispatch({ type: APP_DONE_LOADING })
       dispatch({ type: LOAD_SUCCESS })
 
       dispatch({
         type: FETCHED_ONE_BATCH,
-        payload: result.body
+        payload: res.body
       })
     })
     .catch((error) => {

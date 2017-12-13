@@ -41,21 +41,22 @@ export class BatchesContainer extends PureComponent {
 
     return(
 
-    <div className="StudentsContainer">
-
+    <div>
+      <BatchEditor batchId />
        <GridList cellHeight={100} style={styles.gridList}>
-      {this.props.batches.map((batch) => (
-       <GridTile
+       {this.props.batches.map((batch) => (
+         <GridTile
          key={batch._id}
          title= {"Batch  #" + batch.batchNumber}
          subtitle={<span>{batch.startDate + " ~ " + batch.endDate}</span>}
          onClick={this.linkToBatch(batch._id)}
        >
-       </GridTile>
+         </GridTile>
       ))}
       </GridList>
-      <BatchEditor batchId />
+
       </div>
+
 
     )
   }
