@@ -2,7 +2,7 @@
 
 import request from 'superagent'
 
-export default class ApiClient {
+export default class API{
   defaultOptions = {
     tokenStorageKey: 'studentApiJWT'
   }
