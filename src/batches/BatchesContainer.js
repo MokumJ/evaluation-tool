@@ -1,9 +1,11 @@
-// src/students/StudentsContainer.js
+
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetch as fetchBatches } from '../actions/batches'
+import { fetchBatches } from '../actions/batches'
 import Title from '../components/Title'
-
+import SignIn from '../users/SignIn'
+import PropTypes from 'prop-types'
+import { push } from 'react-router-redux'
 import BatchEditor from './BatchEditor'
 import './BatchContainer.css'
 
@@ -13,12 +15,17 @@ export class BatchesContainer extends PureComponent {
  }
 
   componentWillMount()
-    { this.props.fetchBatches() }
-      goToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
+    { this.props.dispatch(fetchBatches()) }
+
+      linkToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
+
+      renderBatches(batch, index) {
+        return (
+          <batch key={index} {...batch} />
+        )
+      }
   render() {
     if (!this.props.signedIn) return <SignIn />
-
-    if (!batches) { return null }
 
     return(
       <div className="StudentsContainer">
@@ -29,14 +36,16 @@ export class BatchesContainer extends PureComponent {
         </header>
 
         <main>
-          {batches.map(this.renderBatches)}
+          {this.props.batches.map(this.renderBatch)}
+    
         </main>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ batches }) => ({ students })
+const mapStateToProps = ({ batches, currentUser }) => ({ batches,
+  signedIn: !!currentUser && !!currentUser._id, })
 const mapDispatchToProps = { fetchBatches, push }
 
 

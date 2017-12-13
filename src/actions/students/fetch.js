@@ -1,4 +1,4 @@
-// src/actions/recipes/fetch
+// src/actions/students/fetch
 import ApiClient from '../../api/client'
 // import loading from '../loading' // ???
 // import loadError from '../loadError' // ???
@@ -10,9 +10,9 @@ export default () => {
   return dispatch => {
     // dispatch(loading(true)) // ???
 
-    api.get('recipes')
+    api.get('students')
       .then(res => dispatch({ type: FETCHED_RECIPES, payload: res.body }))
-      .catch(err )
+      
 
     // dispatch(loading(false)) // ???
   }

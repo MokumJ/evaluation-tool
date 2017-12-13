@@ -51,6 +51,7 @@ export class Batch extends PureComponent {
         </header>
         <StudentEditor batchNo= { batch._id}/>
         <div>
+
           <p>{ summary }</p>
         </div>
         <footer>
