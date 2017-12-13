@@ -1,9 +1,9 @@
-import ApiClient from '../../api/client'
+import API from '../../api/client'
 // import loading from '../loading' // ???
 // import loadError from '../loadError' // ???
 export const FETCHED_RECIPES = 'FETCHED_RECIPES'
 
-const api = new ApiClient()
+const api = new API()
 
 export default () => {
   return dispatch => {

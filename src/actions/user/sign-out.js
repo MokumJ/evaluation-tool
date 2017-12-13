@@ -1,9 +1,9 @@
-import ApiClient from '../../api/client'
+import API from '../../api/client'
 import { push } from 'react-router-redux'
 
 export const USER_SIGNED_OUT = 'USER_SIGNED_OUT'
 
-const api = new ApiClient()
+const api = new API()
 
 export default (user) => {
   return dispatch => {

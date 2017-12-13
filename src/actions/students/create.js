@@ -1,5 +1,5 @@
 
-import ApiClient from '../../api/client'
+import API from '../../api/client'
 import {
   APP_LOADING,
   APP_DONE_LOADING,
@@ -10,7 +10,7 @@ import {
 
 
 
-const api = new ApiClient()
+const api = new API()
 
 export default () => {
   return (dispatch) => {
