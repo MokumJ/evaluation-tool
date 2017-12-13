@@ -1,12 +1,14 @@
 
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetchBatches } from '../actions/batches'
+import { fetchBatches } from '../actions/batches/'
 import Title from '../components/Title'
 import SignIn from '../users/SignIn'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import BatchEditor from './BatchEditor'
+import Batch from './Batch'
+import {GridList, GridTile} from 'material-ui/GridList';
 import './BatchContainer.css'
 
 export class BatchesContainer extends PureComponent {
@@ -15,30 +17,33 @@ export class BatchesContainer extends PureComponent {
  }
 
   componentWillMount()
-{ this.props.fetchBatches() }
+    { this.props.fetchBatches() }
 
       linkToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
 
-      renderBatches(batch, index) {
-        return (
-          <batch key={index} {...batch} />
-        )
-      }
+
   render() {
+    const { batches } = this.props
+    if (!batches) { return null }
     if (!this.props.signedIn) return <SignIn />
 
     return(
-      <div className="StudentsContainer">
-        <BatchEditor />
+    <div className="StudentsContainer">
 
-        <header>
-          <Title content="All Batches" />
-        </header>
+       <GridList
+        cellHeight={100}
+       >
+      {this.props.batches.map((batch) => (
+       <GridTile
 
-        <main>
-          {this.props.batches.map(this.renderBatches)}
-
-        </main>
+         key={batch._id}
+         title= {"Batch  #" + batch.batchNumber}
+         subtitle={<span>{batch.startDate + " ~ " + batch.endDate}</span>}
+         onClick={this.goToBatch(batch._id)}
+       >
+       </GridTile>
+      ))}
+      </GridList>
       </div>
     )
   }
@@ -47,6 +52,5 @@ export class BatchesContainer extends PureComponent {
 const mapStateToProps = ({ batches, currentUser }) => ({ batches,
   signedIn: !!currentUser && !!currentUser._id, })
 const mapDispatchToProps = { fetchBatches, push }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(BatchesContainer)

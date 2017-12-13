@@ -1,7 +1,7 @@
-import ApiClient from '../../api/client'
+import API from '../../api/client'
 import signIn from './sign-in'
 
-const api = new ApiClient()
+const api = new API()
 
 export default (user) => {
   return dispatch => {

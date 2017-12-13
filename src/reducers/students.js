@@ -21,14 +21,7 @@ export default (state = students, {type, payload} = {}) => {
     case CREATE_RECIPE :
       return [{ ...payload, _id: newId(state) }].concat(state)
 
-    case TOGGLE_LIKE_RECIPE :
-      return state.map((student) => {
-        if (student._id === payload) {
-          return { ...student, liked: !student.liked }
-        }
 
-        return student
-      })
 
     default :
       return state

@@ -7,4 +7,5 @@ export {
   FETCHED_BATCHES,
   CREATE_BATCH,
   FETCHED_ONE_BATCH,
+  fetch,
 }
