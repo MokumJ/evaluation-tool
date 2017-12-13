@@ -7,9 +7,21 @@ import SignIn from '../users/SignIn'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import BatchEditor from './BatchEditor'
-import Batch from './Batch'
+//import Batch from './Batch'
 import {GridList, GridTile} from 'material-ui/GridList';
 import './BatchContainer.css'
+
+const styles = {
+root: {
+   display: 'flex',
+   flexWrap: 'wrap',
+   justifyContent: 'space-around',
+ },
+ gridList: {
+   width: 900,
+   overflowY: 'auto',
+ },
+};
 
 export class BatchesContainer extends PureComponent {
   static propTypes = {
@@ -23,28 +35,28 @@ export class BatchesContainer extends PureComponent {
 
 
   render() {
-    const { batches } = this.props
-    if (!batches) { return null }
+
+
     if (!this.props.signedIn) return <SignIn />
 
     return(
+
     <div className="StudentsContainer">
 
-       <GridList
-        cellHeight={100}
-       >
+       <GridList cellHeight={100} style={styles.gridList}>
       {this.props.batches.map((batch) => (
        <GridTile
-
          key={batch._id}
          title= {"Batch  #" + batch.batchNumber}
          subtitle={<span>{batch.startDate + " ~ " + batch.endDate}</span>}
-         onClick={this.goToBatch(batch._id)}
+         onClick={this.linkToBatch(batch._id)}
        >
        </GridTile>
       ))}
       </GridList>
+      <BatchEditor batchId />
       </div>
+
     )
   }
 }

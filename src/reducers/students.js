@@ -21,8 +21,6 @@ export default (state = students, {type, payload} = {}) => {
     case CREATE_RECIPE :
       return [{ ...payload, _id: newId(state) }].concat(state)
 
-
-
     default :
       return state
   }

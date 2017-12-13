@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import Editor from 'react-medium-editor'
+
 import { connect } from 'react-redux'
 import { createBatch } from '../actions/batches'
 import PropTypes from 'prop-types'
@@ -8,6 +8,16 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
+const dialogStyle = {
+  width: '300px',
+  margin: '30px',
+  padding: '2rem',
+}
+
+const buttonStyle = {
+  float: 'right',
+  marginLeft: '2rem',
+}
 
 class BatchEditor extends PureComponent {
   static propTypes = {
@@ -27,7 +37,7 @@ class BatchEditor extends PureComponent {
 
   render() {
     return (
-      <Paper>
+      <Paper style= { dialogStyle }>
         <Title content="Add Batch"/>
         <form onSubmit={this.submitForm.bind(this)} ref="batchEditor">
           <div className="input">
@@ -44,7 +54,7 @@ class BatchEditor extends PureComponent {
         </div>
         </form>
         <RaisedButton
-
+          style={ buttonStyle }
           onClick={ this.submitForm.bind(this) }
           label="Add batch"
           primary={true} />
