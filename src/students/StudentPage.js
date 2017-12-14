@@ -33,8 +33,7 @@ class StudentPage extends PureComponent {
         <header>
           <Title content={ student.name } className="level-2" />
           <div className="colors">
-          {student.evaluations.map(stud =>
-           <div key={stud._id} className={stud.color}></div>)}
+          
        </div>
           <div
             className="cover"

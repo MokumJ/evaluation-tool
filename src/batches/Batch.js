@@ -16,13 +16,14 @@ import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import SvgIcon from 'material-ui/SvgIcon';
-
+import EvaluationColor from '../components/Colors'
 
 const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   batchId: PropTypes.string.isRequired,
+  currentColor: PropTypes.number,
 })
 
 
@@ -45,8 +46,14 @@ export class Batch extends PureComponent {
     linkToStudent = studentId => event => this.props.push(`/students/${studentId}`)
 
 render() {
+
       const { batch } = this.props
       if (!batch) return null
+
+
+
+
+
 
   return(
     <div>
@@ -68,18 +75,12 @@ render() {
               <Avatar
                 src= {student.picture}
                 size={40}
-
               />
             }
-            RigthIcon={
-              <SvgIcon
-              backgroundColor={student.color}
+            RigthAvatar={
+              <Avatar backgroundColor= {student.currentColor}
               size={40}
-
-              >
-          A
-          </SvgIcon>
-            }
+            />}
             onClick={this.linkToStudent(student._id)}>
 
             </ListItem>
@@ -90,7 +91,7 @@ render() {
         <div className = "editor" >
         <StudentEditor batchId= { batch._id}/>
       </div>
-    </div>
+      </div>
 
     )
   }

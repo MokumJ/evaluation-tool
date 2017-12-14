@@ -30,6 +30,7 @@ class StudentEditor extends PureComponent {
         picture: this.refs.picture.getValue(),
         batchId: batchId,
         evaluations: [{}],
+        currentColor: "0",
       }
       this.props.createStudent(student, batchId)
       this.refs.form.reset()

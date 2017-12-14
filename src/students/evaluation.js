@@ -10,11 +10,6 @@ import { push } from 'react-router-redux'
 import './Evaluation.css'
 
 
-const buttonStyle = {
-  float: 'right',
-  marginLeft: '2rem',
-}
-
 const red = {
   display: 'flex',
   height: '50px',
@@ -102,7 +97,7 @@ class Evaluation extends PureComponent {
           <div className="input">
             <h4>Date: </h4>
             <TextField ref="date" type="date" placeholder='Date' id="pickDate"
-              defaultValue={new Date().substr(0, 10)} />
+              defaultValue={new Date()} />
          </div>
         <div className="input">
           <h4>Remarks: </h4>
