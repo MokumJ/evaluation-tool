@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { fetchOneBatch } from '../actions/batches'
+import { fetchOneBatch } from '../actions/batches/fetch'
 import { Link } from 'react-router-dom'
 import Title from '../components/Title'
 import './Batch.css'
@@ -19,7 +19,7 @@ const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  batchId: PropTypes.string.isRequired,
+  batch_id: PropTypes.string.isRequired,
 })
 const style = {margin: 5};
 

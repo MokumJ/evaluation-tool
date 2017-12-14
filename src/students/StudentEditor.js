@@ -28,7 +28,7 @@ class StudentEditor extends PureComponent {
       const student = {
         name: this.refs.name.getValue(),
         picture: this.refs.picture.getValue(),
-        batchId: batchId,
+        batch_id: batchId,
         evaluations: [{}],
       }
       this.props.createStudent(student, batchId)
