@@ -1,5 +1,6 @@
-import fetchBatches, { FETCHED_BATCHES, FETCHED_ONE_BATCH } from './fetch'
+import fetchBatches, { FETCHED_BATCHES} from './fetch'
 import createBatch, { CREATE_BATCH } from './create'
+import fetchOneBatch, {FETCHED_ONE_BATCH} from './fetch'
 
 export {
   fetchBatches,
@@ -7,5 +8,6 @@ export {
   FETCHED_BATCHES,
   CREATE_BATCH,
   FETCHED_ONE_BATCH,
+  fetchOneBatch,
   fetch,
 }

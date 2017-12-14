@@ -34,7 +34,7 @@ export default () => {
   }
 }
 
-export const fetchOneBatch= (batchId) => {
+export const fetchOneBatch = (batchId) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
