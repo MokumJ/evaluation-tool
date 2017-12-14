@@ -36,7 +36,7 @@ class StudentPage extends PureComponent {
           <Title content={ student.name } className="level-2" />
           <div
             className="cover"
-             style={{backgroundImage:`url(${student.picture || PLACEHOLDER })`}}/>
+             style={{backgroundImage:`url(${ student.picture })`}}/>
 
         </header>
 
