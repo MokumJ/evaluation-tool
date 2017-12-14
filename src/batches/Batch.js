@@ -21,10 +21,12 @@ const studentShape = PropTypes.shape({
   picture: PropTypes.string.isRequired,
   batchId: PropTypes.string.isRequired,
 })
-const style = {margin: 5};
+const style = {
+  marginTop: '20x'
+};
 
 const styles = {
-gridList: {
+List: {
   width: 500,
   height: 100,
   marginTop: '20x',
@@ -55,7 +57,8 @@ render() {
 
     return(
       <div>
-       <List>
+       <List
+       style={styles.List}>
         {batch.students.map((student) => (
          <ListItem
           key={student._id}
@@ -63,7 +66,7 @@ render() {
           leftAvatar={
             <Avatar
               src= {student.picture}
-              size={30}
+              size={60}
               style={style}
            />
           }
