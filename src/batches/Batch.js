@@ -21,7 +21,6 @@ const studentShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   batchId: PropTypes.string.isRequired,
-  currentColor:
 })
 const style = {
   marginTop: '20x'

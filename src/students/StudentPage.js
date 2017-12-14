@@ -25,7 +25,7 @@ class StudentPage extends PureComponent {
 submitForm(event) {
   event.preventDefault()
 
-  const { student } = this.props
+  const { studentId, batchId } = this.props
   const evaluation = {
     color: this.state.value,
     date: this.refs.date.getValue(),
