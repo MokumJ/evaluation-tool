@@ -12,16 +12,26 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import './BatchesContainer.css'
 
 const styles = {
-root: {
-   display: 'flex',
-   flexWrap: 'wrap',
-   justifyContent: 'space-around',
+  root: {
+     display: 'flex',
+     flexWrap: 'wrap',
+     justifyContent: 'space-around',
+
+   },
+    gridList: {
+      width: 900,
+      heigth: 300,
+      overflowY: 'auto',
+
+  },
+    titleStyle: {
+      fontStyle: 'helvetica',
+
  },
- gridTile: {
-   width: 400,
-   heigth: 100,
-   overflowY: 'auto',
- },
+    gridTile: {
+      backgroundColor: '#B71C1C',
+      marginTop: 20,
+    }
 };
 
 export class BatchesContainer extends PureComponent {
@@ -36,27 +46,28 @@ export class BatchesContainer extends PureComponent {
 
 
   render() {
-
-
-
+    //if (!this.props.signedIn) return <SignIn />
 
     return(
 
-    <div>
+      <div className="batch" style={styles.root}>
 
-       <GridList cellHeight={100} style={styles.gridList}>
+       <GridList style={styles.gridList} cellHeight={100} >
        {this.props.batches.map((batch) => (
 
          <GridTile style={styles.gridTile}
          key={batch._id}
          title= {"Batch  #" + batch.batchNumber}
-         subtitle={<span>{batch.startDate + " ~ " + batch.endDate}</span>}
+         subtitle={<span>{batch.startDate.substr(0,10) + " - " + batch.endDate.substr(0,10)}</span>}
+         titleStyle={styles.titleStyle}
+
          onClick={this.linkToBatch(batch._id)}
        >
 
          </GridTile>
       ))}
       </GridList>
+
       <div className="editor" >
       <BatchEditor batchId />
       </div>

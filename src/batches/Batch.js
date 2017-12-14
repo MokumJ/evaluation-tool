@@ -24,16 +24,13 @@ const studentShape = PropTypes.shape({
   picture: PropTypes.string.isRequired,
   batchId: PropTypes.string.isRequired,
 })
+
 const style = {
   margin: '20x'
 
 };
 
-const styles = {
-  width: 800,
-  height: 200,
-  marginLeft: '100x',
-};
+
 const listItem = {
 
 };

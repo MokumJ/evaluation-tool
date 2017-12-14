@@ -46,7 +46,7 @@ class BatchEditor extends PureComponent {
           </div>
           <div className="input">
               <p> Start Date: </p>
-            <TextField hintText = "Start Date" sref="startdate" type="date"/>
+            <TextField hintText = "Start Date" ref="startdate" type="date"/>
          </div>
          <div className="input">
           <p> End Date: </p>

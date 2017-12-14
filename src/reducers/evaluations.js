@@ -1,7 +1,9 @@
 import { EVALUATIONS_FETCHED } from '../actions/evaluations/fetch'
 import { EVALUATION_CREATED } from '../actions/evaluations/create'
 import { EVALUATE } from '../actions/evaluations/evaluate'
+
 export default (state = [], { type, payload } = {}) => {
+
   switch (type) {
     case EVALUATIONS_FETCHED :
         return [ ...payload ]
@@ -14,7 +16,7 @@ export default (state = [], { type, payload } = {}) => {
             if (student._id === payload._id) {
         return { ...payload }
       }
-      return student
+        return student
     })
         default :
           return state
