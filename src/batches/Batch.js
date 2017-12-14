@@ -14,6 +14,8 @@ import FontIcon from 'material-ui/FontIcon';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
+import Divider from 'material-ui/Divider';
+import SvgIcon from 'material-ui/SvgIcon';
 
 
 const studentShape = PropTypes.shape({
@@ -23,18 +25,17 @@ const studentShape = PropTypes.shape({
   batchId: PropTypes.string.isRequired,
 })
 const style = {
-  marginTop: '20x'
+  margin: '20x'
+
 };
 
 const styles = {
-List: {
-  width: 500,
-  height: 100,
-  marginTop: '20x',
-},
+  width: 800,
+  height: 200,
+  marginLeft: '100x',
 };
 const listItem = {
-  marginTop: '20x',
+
 };
 
 export class Batch extends PureComponent {
@@ -59,42 +60,50 @@ render() {
       const { batch } = this.props
       if (!batch) return null
 
-    return(
-      <div>
-       <List
-       style={styles.List}>
-        {batch.students.map((student) => (
-         <ListItem
-          key={student._id}
-          style={listItem}
-          leftAvatar={
-            <Avatar
-              src= {student.picture}
-              size={60}
+  return(
+    <div>
+      <div className= 'list'>
+          <List
+          style={{
+             width: '50%',
+           }}>
+          {batch.students.map((student) => (
+            <ListItem
+            key={student._id}
+            primaryText= {student.name}
+
+            style={{
+            margin: '20x',
+            padding: '0,5rem',
+            }}
+            leftAvatar={
+              <Avatar
+                src= {student.picture}
+                size={40}
+                style={style}
+              />
+            }
+            RigthIcon={
+              <SvgIcon
+              backgroundColor={student.currentColor}
+              size={40}
               style={style}
-           />
-          }
-          RigthAvatar={
-        <Avatar
-          color={student.currentColor}
-          backgroundColor={student.currentColor}
-          size={60}
-          style={style}
-        >
+              >
           A
-        </Avatar>
-      }
-            onClick={this.linkToStudent(student._id)}
-            primaryText={student.name}>
-         </ListItem>
+          </SvgIcon>
+            }
+            onClick={this.linkToStudent(student._id)}>
 
-      ))}
+            </ListItem>
+
+            ))}
         </List>
-
-      <div>
+      </div>
+        <div className = "editor" >
         <StudentEditor batchId= { batch._id}/>
       </div>
-      </div>
+    </div>
+
     )
   }
 }

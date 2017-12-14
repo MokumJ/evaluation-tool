@@ -38,19 +38,19 @@ class BatchEditor extends PureComponent {
   render() {
     return (
       <Paper style= { dialogStyle }>
-        <Title content="Add Batch"/>
+
         <form onSubmit={this.submitForm.bind(this)} ref="batchEditor">
           <div className="input">
-            <h4>Batch number: </h4>
+
             <TextField ref="number" type="number" placeholder="batch number" />
           </div>
           <div className="input">
-            <h4>Startdate: </h4>
-            <TextField ref="startdate" type="date"/>
+              <p> Start Date: </p>
+            <TextField hintText = "Start Date" sref="startdate" type="date"/>
          </div>
          <div className="input">
-           <h4>Startdate: </h4>
-           <TextField ref="enddate" type="date"/>
+          <p> End Date: </p>
+           <TextField hintText = "End Date" ref="enddate" type="date"/>
         </div>
         </form>
         <RaisedButton

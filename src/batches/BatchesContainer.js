@@ -9,7 +9,7 @@ import { push } from 'react-router-redux'
 import BatchEditor from './BatchEditor'
 //import Batch from './Batch'
 import {GridList, GridTile} from 'material-ui/GridList';
-import './BatchContainer.css'
+import './BatchesContainer.css'
 
 const styles = {
 root: {
@@ -17,8 +17,9 @@ root: {
    flexWrap: 'wrap',
    justifyContent: 'space-around',
  },
- gridList: {
-   width: 900,
+ gridTile: {
+   width: 400,
+   heigth: 100,
    overflowY: 'auto',
  },
 };
@@ -37,16 +38,16 @@ export class BatchesContainer extends PureComponent {
   render() {
 
 
-    if (!this.props.signedIn) return <SignIn />
+
 
     return(
 
     <div>
-      <BatchEditor batchId />
+
        <GridList cellHeight={100} style={styles.gridList}>
        {this.props.batches.map((batch) => (
 
-         <GridTile
+         <GridTile style={styles.gridTile}
          key={batch._id}
          title= {"Batch  #" + batch.batchNumber}
          subtitle={<span>{batch.startDate + " ~ " + batch.endDate}</span>}
@@ -56,7 +57,9 @@ export class BatchesContainer extends PureComponent {
          </GridTile>
       ))}
       </GridList>
-
+      <div className="editor" >
+      <BatchEditor batchId />
+      </div>
       </div>
 
 

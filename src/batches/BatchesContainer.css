@@ -1,24 +1,32 @@
 .StudentsContainer {
   margin: 0 auto;
   width: 100%; }
-  .StudentsContainer main {
+
+.editor {
+  position: absolute;
+  bottom: 30px;
+  left: 450px;
+  width: 45%;
+  align-items: center;
+  height: 300px; }
+  .editor main {
     margin: 0 auto;
     display: flex;
     flex-direction: column; }
     @media (min-width: 1025px) {
-      .StudentsContainer main {
+      .editor main {
         max-width: 1260px;
         flex-flow: row wrap; } }
     @media (min-width: 769px) {
-      .StudentsContainer main {
+      .editor main {
         flex-flow: row wrap; } }
-  .StudentsContainer > header {
+  .editor > header {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     flex: 2 100%; }
     @media (min-width: 1025px) {
-      .StudentsContainer > header {
+      .editor > header {
         max-width: 1260px; }
-        .StudentsContainer > header h1 {
+        .editor > header h1 {
           padding: 0 30px; } }
