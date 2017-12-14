@@ -6,17 +6,15 @@ import {
   LOAD_ERROR,
   LOAD_SUCCESS
 } from '../loading'
-
-
-
+export const CREATE_STUDENT = 'CREATE_STUDENT'
 
 const api = new API()
 
-export default () => {
+export default (student, batchId) => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.post('/students', {})
+    api.post('/students', student)
       .then(() => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })

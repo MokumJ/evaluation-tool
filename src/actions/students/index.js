@@ -1,10 +1,10 @@
-import fetch, { FETCHED_RECIPES } from './fetch'
-import create, { CREATE_RECIPE } from './create'
+import fetchStudent, { FETCHED_STUDENTS } from './fetch'
+import createStudent, { CREATE_STUDENT } from './create'
 
 
 export {
-  FETCHED_RECIPES,
-  CREATE_RECIPE,
+  FETCHED_STUDENTS,
+  CREATE_STUDENT,
   fetch,
-  create,
+  createStudent,
 }

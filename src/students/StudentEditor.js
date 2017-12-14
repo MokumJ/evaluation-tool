@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createStudent } from '../actions/students'
 import PropTypes from 'prop-types'
-import Title from '../components/ui/Title'
+import Title from '../components/UI/Title'
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
