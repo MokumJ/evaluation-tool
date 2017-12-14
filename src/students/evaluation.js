@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { evaluate } from '../actions/evaluations/evaluate'
+import { evaluate } from '../actions/evaluations'
 import PropTypes from 'prop-types'
-import Title from '../components/ui/Title'
+import Title from '../components/UI/Title'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { push } from 'react-router-redux'
-
+import './Evaluation.css'
 
 const dialogStyle = {
   width: '470px',
@@ -25,6 +25,11 @@ const buttonStyle = {
 
 class Evaluation extends PureComponent {
 
+  static propTypes = {
+    evaluate: PropTypes.func.isRequired,
+    color: PropTypes.string,
+}
+
   state = {}
 
   submitForm(event) {
@@ -35,7 +40,7 @@ class Evaluation extends PureComponent {
         date: this.refs.date.getValue(),
         remark: this.refs.remark.getValue()
       }
-
+      this.props.evaluate(evaluation, studentId, batchId)
       this.props.push(`/batches/${batchId}`)
     }
 
@@ -48,7 +53,7 @@ class Evaluation extends PureComponent {
         remark: this.refs.remark.getValue()
         }
 
-      this.props.(evaluation, studentId, batchId)
+      this.props.evaluate(evaluation, studentId, batchId)
       this.props.push(`/students/${this.props.students[(this.props.students.findIndex(
         s=>s._id === studentId)+1)%this.props.students.length]._id}`)
       }
@@ -58,7 +63,7 @@ class Evaluation extends PureComponent {
   render() {
     return (
       <Paper style={ dialogStyle }>
-        <Title content="Rate Student" level={2} />
+        <Title content="" level={2} />
 
         <form onSubmit={this.submitForm.bind(this)} ref="form">
         <div className="input">
@@ -68,7 +73,7 @@ class Evaluation extends PureComponent {
             <div className="red1" onClick={()=>this.handleChange("red")}></div>
           </div>
         </div>
-         <h4>Rate: {this.state.value}</h4>
+         <h4>Evaluate: {this.state.value}</h4>
           <div className="input">
             <h4>Date: </h4>
             <TextField ref="date" type="date" placeholder='Date' id="pickDate"
@@ -83,15 +88,11 @@ class Evaluation extends PureComponent {
             rowsMax={4} />
         </div>
         </form>
-        <RaisedButton
-          style={ button1 }
-          onClick={ this.submitNext.bind(this) }
-          label="Save and next"
-          primary={true}/>
+
         <RaisedButton
           style={ buttonStyle }
           onClick={ this.submitForm.bind(this) }
-          label="Save"
+          label="Evaluate"
           primary={true} />
       </Paper>
     )

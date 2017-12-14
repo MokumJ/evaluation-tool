@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { fetchOneStudent } from '../actions/students'
 import { updateStudent } from '../actions/students'
 import { push } from 'react-router-redux'
-
+import Evaluation from './Evaluation'
 import Title from '../components/Title'
 import './StudentPage.css'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -20,33 +20,6 @@ class StudentPage extends PureComponent {
     if (!student) { fetchOneStudent(studentId) }
   }
 
-  state = {}
-
-submitForm(event) {
-  event.preventDefault()
-
-  const { studentId, batchId } = this.props
-  const evaluation = {
-    color: this.state.value,
-    date: this.refs.date.getValue(),
-    remark: this.refs.remark  .getValue()
-   }
-
-  if (evaluation.color != null) {
-    var setEvaluation = this.props.student.evaluations
-        setEvaluations.push(evaluation)}
-
-    const updatedStudent = {
-      name: this.refs.name.getValue(),
-      picture: this.refs.photo.getValue(),
-      evaluations: setEvaluation
-  }
-
-    this.props.updateStudent(setEvaluation, student._id)
-    this.props.push(`/students/${student._id}`)
-  }
-
-  handleChange = (value) => { this.setState({value}) }
 
   backToBatch = batchId => event => this.props.push(`/batch/${batchId}`)
 
@@ -69,6 +42,9 @@ submitForm(event) {
 
           <p>{ student.remark }</p>
         </div>
+        <div>
+         <Evaluation studentId={student._id} batchId={student.batchId}/>
+       </div>
         <footer>
         <RaisedButton
             onClick={ this.backToBatch(this.props.student.batchId) }
@@ -88,4 +64,4 @@ submitForm(event) {
   }
 }
 
-export default connect(mapStateToProps, { fetchOneStudent, push, setEvaluation })(StudentPage)
+export default connect(mapStateToProps, { fetchOneStudent, push })(StudentPage)
