@@ -7,6 +7,7 @@ import { push } from 'react-router-redux'
 import StudentCategory from './StudentCategory'
 import Title from '../components/Title'
 import './StudentItem.css'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 class StudentPage extends PureComponent {
@@ -14,6 +15,9 @@ class StudentPage extends PureComponent {
   componentWillMount() {
     const { student, fetchOneStudent } = this.props
     const { studentId } = this.props.match.params
+    const currentStudent = this.props.students.filter(student => student._id === studentId)
+    const profileStudent = currentStudent[0]
+    const batchId = profileStudent.batch_id
 
     if (!student) { fetchOneStudent(studentId) }
 
@@ -30,43 +34,60 @@ class StudentPage extends PureComponent {
          date: this.refs.date.getValue(),
          context: this.refs.context.getValue()
         }
-        backToBatch(){
-          const { studentId } = this.props.match.params
-          const currentStudent = this.props.students.filter(student => student._id === studentId)
-          const daStudent = thisStudent[0]
-          const batchId = Student.batch_id
-          this.props.push(`/batch/${batchId}`)
-        }
-    }
+        if (evaluation.color != null) {
+        var updatedEvaluations = this.props.student.evaluations
+        updatedEvaluations.push(evaluation)}
 
-      // student list
-       //  link to student name , photo color.
-        //
+        const updatedStudent = {
+         name: this.refs.name.getValue(),
+         picture: this.refs.photo.getValue(),
+         evaluations: updatedEvaluations
+     }
+
+     this.props.updateStudent(updatedStudent, student._id)
+     this.props.push(`/students/${student._id}`)
+    }
+    handleChange = (value) => { this.setState({value}) }
+
+
+    backToBatch = profileStudent => event => this.props.push(`/batch/${batchId}`)
+
+
+  render() {
+    const  { student } = this.props
+    const { studentId } = this.props.match.params
+    const currentStudent = this.props.students.filter(student => student._id === studentId)
+    const profileStudent = currentStudent[0]
+
+
+
+  return (
+
       <article className="StudentItem">
         <header>
+          <Title content={profileStudent.name} className="level-2" />
           <div
-            className="cover"
-            style={{ backgroundImage: `url(${picture || PLACEHOLDER })` }} />
-          <Link to={`/students/${_id}`}>
-            <Title content={title} className="level-2" />
-          </Link>
-          <ul className="categories">
 
-          </ul>
+            className="img" style={{backgroundImage:"url("+ profileStudent.picture +")" }}/>
+
         </header>
-        <StudentEditor batchId= { batch._id}/>
+
         <div>
 
-          <p>{ context }</p>
+          <p>{ profileStudent.context }</p>
         </div>
         <footer>
-
+        <RaisedButton
+            onClick={ this.backToBatch.bind(this) }
+            label="Back"
+            primary={true} />
         </footer>
       </article>
+
     )
   }
 }
 
 const mapStateToProps = ({ batches, students, evaluations }) => ({ batches, students, evaluations })
 
-export default connect(null, mapDispatchToProps)(StudentItem)
+export default connect(mapStateToProps, { fetchOneStudent, updateStudent, push })(StudentPage)
