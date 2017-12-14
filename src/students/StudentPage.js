@@ -7,7 +7,7 @@ import { updateStudent } from '../actions/students'
 import { push } from 'react-router-redux'
 
 import Title from '../components/Title'
-import './StudentItem.css'
+import './StudentPage.css'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
@@ -35,8 +35,8 @@ class StudentPage extends PureComponent {
         <header>
           <Title content={ student.name } className="level-2" />
           <div
-
-            className="img" style={{backgroundImage:"url("+ student.picture +")" }}/>
+            className="cover"
+             style={{backgroundImage:`url(${student.picture || PLACEHOLDER })`}}/>
 
         </header>
 
@@ -46,7 +46,7 @@ class StudentPage extends PureComponent {
         </div>
         <footer>
         <RaisedButton
-            onClick={ this.backToBatch.bind(this) }
+            onClick={ this.backToBatch(this.props.student.batchId) }
             label="Back"
             primary={true} />
         </footer>
