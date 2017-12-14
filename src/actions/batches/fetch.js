@@ -14,7 +14,7 @@ export default () => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-  api.get('batches')
+  api.get('/batches')
     .then((res) => {
       dispatch({ type: APP_DONE_LOADING })
       dispatch({ type: LOAD_SUCCESS })
@@ -34,11 +34,11 @@ export default () => {
   }
 }
 
-export const fetchOneBatch= (batchId) => {
+export const fetchOneBatch = (batchId) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-  api.get(`batches/${batchId}`)
+  api.get(`/batches/${batchId}`)
     .then((res) => {
       dispatch({ type: APP_DONE_LOADING })
       dispatch({ type: LOAD_SUCCESS })

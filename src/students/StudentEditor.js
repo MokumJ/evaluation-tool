@@ -9,9 +9,6 @@ import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton'
 
-
-
-}
 const buttonStyle = {
   marginLeft: '3rem',
   color: 'green',
@@ -41,7 +38,7 @@ class StudentEditor extends PureComponent {
   render() {
     return (
       <Paper zDepth={2}>
-        <Title content="Add New Student"  />
+        <Title content=" Add New Student"  />
 
         <form onSubmit={this.submitForm.bind(this)} ref="form">
           <div className="input">
