@@ -35,7 +35,6 @@ export class Batch extends PureComponent {
   static propTypes = {
     fetchOneBatch: PropTypes.func.isRequired,
     batch: PropTypes.shape({
-
       students: PropTypes.arrayOf(studentShape),
       startDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired,
@@ -44,49 +43,45 @@ export class Batch extends PureComponent {
   }
     componentWillMount() {
        const { batchId } = this.props.match.params
-       {this.props.fetchOneBatch(batchId)}
+        {this.props.fetchOneBatch(batchId)}
         //pickRandom Student function
   }
     linkToStudent = studentId => event => this.props.push(`/students/${studentId}`)
 
-    render() {
-    const { batch } = this.props
+render() {
+      const { batch } = this.props
       if (!batch) return null
+
     return(
       <div>
-
-       <StudentEditor batchId= { batch._id}/>
-
-      <GridList cellHeight={100}
-     styles={styles.gridList}>
-
+       <List>
         {batch.students.map((student) => (
-         <GridTile key={student._id}
-         title={student.name}>
          <ListItem
-         disabled={true}
-         leftAvatar={
-        <Avatar
-        src= {student.picture}
-        size={30}
-        style={style}
-        onClick={this.linkToStudent(student._id)}/>
+          key={student._id}
+          disabled={true}
+          leftAvatar={
+            <Avatar
+              src= {student.picture}
+              size={30}
+              style={style}
+           />
+          }
+            onClick={this.linkToStudent(student._id)}
+            primaryText={student.name}>
+         </ListItem>
 
-
-      }
-      >
-      </ListItem>
-
-        </GridTile>
       ))}
-   </GridList>
-   </div>
+        </List>
 
+      <div>
+        <StudentEditor batchId= { batch._id}/>
+      </div>
+      </div>
     )
   }
 }
 
-const mapStateToProps = ({ batches }, { match }) => {
+    const mapStateToProps = ({ batches }, { match }) => {
     const batch = batches.filter((b) => (b._id === match.params.batchId))[0]
     return {
       batch
