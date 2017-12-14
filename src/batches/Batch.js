@@ -19,7 +19,7 @@ const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  batch_id: PropTypes.string.isRequired,
+  batchId: PropTypes.string.isRequired,
 })
 const style = {margin: 5};
 
@@ -39,6 +39,7 @@ export class Batch extends PureComponent {
       startDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired,
       pickStudent: PropTypes.array,
+
       })
   }
     componentWillMount() {
