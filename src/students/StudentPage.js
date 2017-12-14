@@ -20,10 +20,35 @@ class StudentPage extends PureComponent {
     if (!student) { fetchOneStudent(studentId) }
   }
 
+  state = {}
 
+submitForm(event) {
+  event.preventDefault()
 
-    backToBatch = batchId => event => this.props.push(`/batch/${batchId}`)
+  const { studentId, batchId } = this.props
+  const evaluation = {
+    color: this.state.value,
+    date: this.refs.date.getValue(),
+    remark: this.refs.remark  .getValue()
+   }
 
+  if (evaluation.color != null) {
+    var setEvaluation = this.props.student.evaluations
+        setEvaluations.push(evaluation)}
+
+    const updatedStudent = {
+      name: this.refs.name.getValue(),
+      picture: this.refs.photo.getValue(),
+      evaluations: setEvaluation
+  }
+
+    this.props.updateStudent(setEvaluation, student._id)
+    this.props.push(`/students/${student._id}`)
+  }
+
+  handleChange = (value) => { this.setState({value}) }
+
+  backToBatch = batchId => event => this.props.push(`/batch/${batchId}`)
 
   render() {
    const  { student } = this.props
@@ -42,7 +67,7 @@ class StudentPage extends PureComponent {
 
         <div>
 
-          <p>{ student.context }</p>
+          <p>{ student.remark }</p>
         </div>
         <footer>
         <RaisedButton
@@ -63,4 +88,4 @@ class StudentPage extends PureComponent {
   }
 }
 
-export default connect(mapStateToProps, { fetchOneStudent, push })(StudentPage)
+export default connect(mapStateToProps, { fetchOneStudent, push, setEvaluation })(StudentPage)

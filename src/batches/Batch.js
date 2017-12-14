@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { fetchOneBatch } from '../actions/batches/fetch'
+import fetchEvaluations  from '../actions/evaluations/fetch'
 import { Link } from 'react-router-dom'
 import Title from '../components/Title'
 import './Batch.css'
@@ -31,6 +32,9 @@ List: {
   height: 100,
   marginTop: '20x',
 },
+};
+const listItem = {
+  marginTop: '20x',
 };
 
 export class Batch extends PureComponent {
@@ -62,7 +66,7 @@ render() {
         {batch.students.map((student) => (
          <ListItem
           key={student._id}
-          disabled={true}
+          style={listItem}
           leftAvatar={
             <Avatar
               src= {student.picture}
@@ -70,6 +74,16 @@ render() {
               style={style}
            />
           }
+          RigthAvatar={
+        <Avatar
+          color={student.currentColor}
+          backgroundColor={student.currentColor}
+          size={60}
+          style={style}
+        >
+          A
+        </Avatar>
+      }
             onClick={this.linkToStudent(student._id)}
             primaryText={student.name}>
          </ListItem>
