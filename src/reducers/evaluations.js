@@ -16,7 +16,7 @@ export default (state = [], { type, payload } = {}) => {
             if (student._id === payload._id) {
         return { ...payload }
       }
-        return student
+         return student
     })
         default :
           return state

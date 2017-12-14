@@ -9,6 +9,29 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { push } from 'react-router-redux'
 import './Evaluation.css'
 
+
+const buttonStyle = {
+  float: 'right',
+  marginLeft: '2rem',
+}
+
+const red = {
+  display: 'flex',
+  height: '50px',
+  width: '50px',
+  backgroundColor: 'red',
+}
+const yellow = {
+  height: '50px',
+  width: '50px',
+  backgroundColor: 'yellow',
+}
+const green = {
+  height: '50px',
+  width: '50px',
+  backgroundColor: 'green',
+}
+
 const dialogStyle = {
   width: '470px',
   height: '550px',
@@ -20,14 +43,15 @@ const button1 = {
   float: 'left',
 }
 const buttonStyle = {
-  float: 'right',
+  float: 'center',
 }
 
 class Evaluation extends PureComponent {
 
   static propTypes = {
     evaluate: PropTypes.func.isRequired,
-    color: PropTypes.string,
+    color: PropTypes.number,
+    studentId: PropTypes.string,
 }
 
   state = {}
@@ -68,16 +92,17 @@ class Evaluation extends PureComponent {
         <form onSubmit={this.submitForm.bind(this)} ref="form">
         <div className="input">
           <div className="colors" >
-            <div className="green1" onClick={()=>this.handleChange("green")}></div>
-            <div className="yellow1" onClick={()=>this.handleChange("yellow")}></div>
-            <div className="red1" onClick={()=>this.handleChange("red")}></div>
+            <div className="red" style={red} onClick={()=>this.setColor(0)}></div>
+            <div className="yellow" style={yellow} onClick={()=>this.setColor(1)}></div>
+            <div className="green" style={green} onClick={()=>this.setColor(2)}></div>
           </div>
-        </div>
+          </div>
+
          <h4>Evaluate: {this.state.value}</h4>
           <div className="input">
             <h4>Date: </h4>
             <TextField ref="date" type="date" placeholder='Date' id="pickDate"
-              defaultValue={new Date()} />
+              defaultValue={new Date().substr(0, 10)} />
          </div>
         <div className="input">
           <h4>Remarks: </h4>

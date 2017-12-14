@@ -25,15 +25,6 @@ const studentShape = PropTypes.shape({
   batchId: PropTypes.string.isRequired,
 })
 
-const style = {
-  margin: '20x'
-
-};
-
-
-const listItem = {
-
-};
 
 export class Batch extends PureComponent {
   static propTypes = {
@@ -77,14 +68,14 @@ render() {
               <Avatar
                 src= {student.picture}
                 size={40}
-                style={style}
+
               />
             }
             RigthIcon={
               <SvgIcon
-              backgroundColor={student.currentColor}
+              backgroundColor={student.color}
               size={40}
-              style={style}
+
               >
           A
           </SvgIcon>
