@@ -6,10 +6,9 @@ import { fetchOneBatch } from '../actions/batches/fetch'
 import { Link } from 'react-router-dom'
 import Title from '../components/Title'
 import './Batch.css'
-import '../students/StudentEditor'
+import StudentEditor '../students/StudentEditor'
 import { GridList, GridTile} from 'material-ui/GridList';
 
-const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 
 const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
@@ -55,13 +54,27 @@ export class Batch extends PureComponent {
         {batch.students.map((student) => (
          <GridTile key={student._id}
          title={student.name}>
-           <img className ="studentPicture" src={student.picture} alt= "student"
-            onClick={this.linkToStudent(student._id)}/>
+         <ListItem
+         disabled={true}
+         leftAvatar={
+        <Avatar
+        src= {student.picture}
+        size={30}
+        style={style}
+        />
+        onClick={this.linkToStudent(student._id)}/>
+      }
+      >
+      </ListItem>
+
         </GridTile>
 
       ))}
    </GridList>
-
+   <div>
+   <p> hallo wereld </p>
+    <StudentEditor batchId= { batch._id}/>
+   </div>
     )
   }
 }

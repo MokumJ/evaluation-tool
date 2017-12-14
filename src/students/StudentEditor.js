@@ -1,124 +1,68 @@
 // src/students/StudentEditor.js
 import React, { PureComponent } from 'react'
-import Editor from 'react-medium-editor'
-import toMarkdown from 'to-markdown'
 import { connect } from 'react-redux'
-import 'medium-editor/dist/css/medium-editor.css'
-import 'medium-editor/dist/css/themes/default.css'
-import createStudent from '../actions/students/create'
-import './StudentEditor.css'
+import { createStudent } from '../actions/students'
+import PropTypes from 'prop-types'
+import Title from '../components/ui/Title'
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton'
 
-const TYPES = [
-  'vegan',
-  'vegetarian',
-  'pescatarian'
-]
+
+
+}
+const buttonStyle = {
+  marginLeft: '3rem',
+  color: 'green',
+}
 
 class StudentEditor extends PureComponent {
-  constructor(props) {
-    super()
+  static propTypes = {
+    createStudent: PropTypes.func.isRequired,
+    batchId: PropTypes.string
+  }
 
-    const { title, summary, vegan, vegetarian, pescatarian, photo } = props
+  state = {}
 
-    this.state = {
-      title,
-      summary,
-      vegan,
-      vegetarian,
-      pescatarian,
-      photo,
+  submitForm(event) {
+    event.preventDefault()
+      const { batchId } = this.props
+      const student = {
+        name: this.refs.name.getValue(),
+        picture: this.refs.picture.getValue(),
+        batchId: batchId,
+        evaluations: [{}],
+      }
+      this.props.createStudent(student, batchId)
+      this.refs.form.reset()
     }
-  }
-
-  updateTitle(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault()
-      this.refs.summary.medium.elements[0].focus()
-    }
-    this.setState({
-      title: this.refs.title.value
-    })
-  }
-
-  updatePhoto(event) {
-    this.setState({
-      photo: this.refs.photo.value
-    })
-  }
-
-  updateIntro(text, medium) {
-    this.setState({
-      summary: text
-    })
-  }
-
-
-  setType(event) {
-    this.setState({
-      vegan: event.target.value === 'vegan',
-      vegetarian: event.target.value === 'vegetarian',
-      pescatarian: event.target.value === 'pescatarian'
-    })
-  }
-
-  saveStudent() {
-    console.table(this.state)
-
-    const student = {
-      ...this.state,
-      summary: toMarkdown(this.state.summary),
-      liked: false
-    }
-
-    console.table(student)
-
-    this.props.save(student)
-  }
 
   render() {
     return (
-      <div className="editor">
-        <input
-          type="text"
-          ref="title"
-          className="title"
-          placeholder="Title"
-          defaultValue={this.state.title}
-          onChange={this.updateTitle.bind(this)}
-          onKeyUp={this.updateTitle.bind(this)} />
+      <Paper zDepth={2}>
+        <Title content="Add New Student"  />
 
-        <Editor
-          ref="summary"
-          options={{
-            placeholder: {text: 'Write an Introduction...'}
-          }}
-          onChange={this.updateIntro.bind(this)}
-          text={this.state.summary} />
-
-        <input
-          type="text"
-          ref="photo"
-          className="photo"
-          placeholder="Photo URL"
-          defaultValue={this.state.photo}
-          onChange={this.updatePhoto.bind(this)}
-          onKeyUp={this.updatePhoto.bind(this)} />
-
-        {TYPES.map((type) => {
-          return <label key={type} htmlFor={type}>
-            <input id={type} type="radio" name="type" value={type} onChange={this.setType.bind(this)} />
-            {type}
-          </label>
-        })}
-
-        <div className="actions">
-          <button className="primary" onClick={this.saveStudent.bind(this)}>Save</button>
-        </div>
-      </div>
+        <form onSubmit={this.submitForm.bind(this)} ref="form">
+          <div className="input">
+            <h4>Full name: </h4>
+            <TextField ref="name" type="text" hintText="Full Name" id="name"/>
+          </div>
+          <div className="input">
+            <h4>Photo: </h4>
+            <TextField ref="picture" type="text" hintText='url' id="picture"/>
+         </div>
+        </form>
+        <RaisedButton
+          style={ buttonStyle }
+          onClick={ this.submitForm.bind(this) }
+          label="Add"
+          primary={true} />
+      </Paper>
     )
   }
 }
 
-const mapDispatchToProps = { save: createStudent }
+const mapStateToProps = ({ student }) => ({ student })
 
-export default connect(null, mapDispatchToProps)(StudentEditor)
+export default connect(mapStateToProps, { createStudent })(StudentEditor)
