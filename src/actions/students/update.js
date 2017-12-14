@@ -6,34 +6,31 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 import API from '../../api/client'
-import { fetchOneBatch } from '../batches/fetch'
 
-export const FETCHED_ONE_STUDENT = 'FETCHED_ONE_STUDENT'
+export const UPDATE_STUDENT = 'UPDATE_STUDENT'
 
 const api = new API()
 
-export default (studentId) => {
+export default (student, studentId) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-   api.get(`students/${studentId}`)
-      .then((result) => {
+    api.put(`students/${studentId}`, student  )
+      .then((res) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
 
         dispatch({
-          type: FETCHED_ONE_STUDENT,
-          payload: result.body
+          type: UPDATE_STUDENT,
+          payload: res.body
         })
-        dispatch(fetchOneBatch(result.body.batchId))
       })
-
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({
           type: LOAD_ERROR,
           payload: error.message
+        })
       })
-    })
   }
 }
