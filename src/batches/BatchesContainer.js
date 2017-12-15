@@ -9,18 +9,29 @@ import { push } from 'react-router-redux'
 import BatchEditor from './BatchEditor'
 //import Batch from './Batch'
 import {GridList, GridTile} from 'material-ui/GridList';
-import './BatchContainer.css'
+import './BatchesContainer.css'
 
 const styles = {
-root: {
-   display: 'flex',
-   flexWrap: 'wrap',
-   justifyContent: 'space-around',
+  root: {
+     display: 'flex',
+     flexWrap: 'wrap',
+     justifyContent: 'space-around',
+
+   },
+    gridList: {
+      width: 900,
+      heigth: 300,
+      overflowY: 'auto',
+
+  },
+    titleStyle: {
+      fontStyle: 'helvetica',
+
  },
- gridList: {
-   width: 900,
-   overflowY: 'auto',
- },
+    gridTile: {
+      backgroundColor: '#B71C1C',
+      marginTop: 20,
+    }
 };
 
 export class BatchesContainer extends PureComponent {
@@ -35,21 +46,21 @@ export class BatchesContainer extends PureComponent {
 
 
   render() {
-
-
-    if (!this.props.signedIn) return <SignIn />
+    //if (!this.props.signedIn) return <SignIn />
 
     return(
 
-    <div>
-      <BatchEditor batchId />
-       <GridList cellHeight={100} style={styles.gridList}>
+      <div className="batch" style={styles.root}>
+
+       <GridList style={styles.gridList} cellHeight={100} >
        {this.props.batches.map((batch) => (
 
-         <GridTile
+         <GridTile style={styles.gridTile}
          key={batch._id}
          title= {"Batch  #" + batch.batchNumber}
-         subtitle={<span>{batch.startDate + " ~ " + batch.endDate}</span>}
+         subtitle={<span>{batch.startDate.substr(0,10) + " - " + batch.endDate.substr(0,10)}</span>}
+         titleStyle={styles.titleStyle}
+
          onClick={this.linkToBatch(batch._id)}
        >
 
@@ -57,6 +68,9 @@ export class BatchesContainer extends PureComponent {
       ))}
       </GridList>
 
+      <div className="editor" >
+      <BatchEditor batchId />
+      </div>
       </div>
 
 
