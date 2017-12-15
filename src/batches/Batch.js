@@ -72,7 +72,7 @@ export class Batch extends PureComponent {
 
 
 render() {
-      const { batch } = this.props
+    const { batch } = this.props
       if (!batch) return null
 
     return(
@@ -90,12 +90,11 @@ render() {
             />}
             primaryText= {student.name}
             style={{
-              margin: '20x',
+            margin: '20x',
              padding: '0,5rem',
             }}
             rightAvatar={
-              <Avatar
-            backgroundColor= {pickColor(student.currentColor)} />}
+           <EvaluationColor currentColor={student.currentColor} />}
             onClick={this.linkToStudent(student._id)}>
 
             </ListItem>

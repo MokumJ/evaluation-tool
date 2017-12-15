@@ -42,13 +42,13 @@ class StudentPage extends PureComponent {
         </header>
 
         <div>
-
           <p>{ student.remark }</p>
         </div>
-        <div>
-         <Evaluation studentId={student._id} batchId={student.batchId}/>
-       </div>
+
         <footer>
+        <div>
+         <Evaluation studentId={student._id} batchId={student.batchId} />
+       </div>
         <RaisedButton
             onClick={ this.backToBatch(this.props.student.batchId) }
             label="Back"
