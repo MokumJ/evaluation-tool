@@ -79,6 +79,9 @@ class Evaluation extends PureComponent {
 
   handleChange = (value) => { this.setState({value}) }
 
+  setColor = (value) => { this.setState({value}) }
+
+
   render() {
     return (
       <Paper style={ dialogStyle }>
@@ -93,7 +96,9 @@ class Evaluation extends PureComponent {
           </div>
           </div>
 
-         <h4>Evaluate: {this.state.value}</h4>
+         <h4>Evaluate: {(this.state.value)}
+
+            </h4>
           <div className="input">
             <h4>Date: </h4>
             <TextField ref="date" type="date" placeholder='Date' id="pickDate"
