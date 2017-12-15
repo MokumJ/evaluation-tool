@@ -7,15 +7,15 @@ class EvaluationColor extends PureComponent {
    switch(this.props.currentColor){
      case 0:
      return(
-       <Avatar backgroundColor= 'red' size={40} />
+       <Avatar backgroundColor= 'red' size={30} />
      )
      case 1:
      return(
-       <Avatar backgroundColor= 'yellow' size={40} />
+       <Avatar backgroundColor= 'yellow' size={30} />
       )
       default:
       return(
-        <Avatar backgroundColor= 'green' size={40} />
+        <Avatar backgroundColor= 'green' size={30} />
       )
     }
   }

@@ -9,7 +9,7 @@ import Evaluation from './Evaluation'
 import Title from '../components/Title'
 import './StudentPage.css'
 import RaisedButton from 'material-ui/RaisedButton'
-
+import EvaluationColor from '../components/Colors'
 const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 
 class StudentPage extends PureComponent {
@@ -32,9 +32,9 @@ class StudentPage extends PureComponent {
       <article className="StudentItem">
         <header>
           <Title content={ student.name } className="level-2" />
-          <div className="colors">
-          
-       </div>
+          <div className="color">
+        <EvaluationColor currentColor={student.currentColor} />}
+          </div>
           <div
             className="cover"
              style={{backgroundImage:`url(${ student.picture })`}}/>

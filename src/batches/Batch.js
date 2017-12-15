@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import fetchEvaluations  from '../actions/evaluations/fetch'
-import { Link } from 'react-router-dom'
 import Title from '../components/Title'
 import './Batch.css'
 import StudentEditor from '../students/StudentEditor'
@@ -17,6 +16,8 @@ import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import SvgIcon from 'material-ui/SvgIcon';
 import EvaluationColor from '../components/Colors'
+import { pickStudent } from '../actions/batches'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
@@ -29,13 +30,13 @@ const studentShape = PropTypes.shape({
 
 export class Batch extends PureComponent {
   static propTypes = {
+    pickStudent: PropTypes.func,
     fetchOneBatch: PropTypes.func.isRequired,
     batch: PropTypes.shape({
       students: PropTypes.arrayOf(studentShape),
       startDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired,
       pickStudent: PropTypes.array,
-
       })
   }
     componentWillMount() {
@@ -44,6 +45,11 @@ export class Batch extends PureComponent {
         //pickRandom Student function
   }
     linkToStudent = studentId => event => this.props.push(`/students/${studentId}`)
+
+    pickStudent() {
+     const { batch } = this.props
+     this.props.pickStudent(batch)
+   }
 
 render() {
 
@@ -56,33 +62,38 @@ render() {
           <List
           style={{
              width: '80%',
+
            }}>
           {batch.students.map((student) => (
             <ListItem
             key={student._id}
+            leftAvatar={
+            <EvaluationColor currentColor={student.currentColor} />}
             primaryText= {student.name}
-
             style={{
             margin: '20x',
-            padding: '0,5rem',
+            padding: '0,6rem',
             }}
-            leftAvatar={
+            rightAvatar={
               <Avatar
                 src= {student.picture}
-                size={40}
+                size={30}
               />
             }
-            rightAvatar={
-            <EvaluationColor currentColor= {student.currentColor} />}
+
             onClick={this.linkToStudent(student._id)}>
-
             </ListItem>
-
             ))}
         </List>
+        <p> {batch.pickStudent} </p>
       </div>
         <div className = "editor" >
         <StudentEditor batchId= { batch._id}/>
+        <RaisedButton
+      label="Pick Student"
+      primary={true}
+      onClick={ this.pickStudent.bind(this)}
+      />
       </div>
       </div>
 
@@ -98,4 +109,4 @@ render() {
   }
 
 
-export default connect(mapStateToProps, { fetchOneBatch, push })(Batch)
+export default connect(mapStateToProps, { fetchOneBatch, push, pickStudent })(Batch)

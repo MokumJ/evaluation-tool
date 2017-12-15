@@ -5,5 +5,4 @@ export {
 
   BatchesContainer,
   Batch,
-
 }
