@@ -1,20 +1,21 @@
 import React, { PureComponent } from 'react'
 import Avatar from 'material-ui/Avatar';
 
+
 class EvaluationColor extends PureComponent {
  render() {
    switch(this.props.currentColor){
      case 0:
      return(
-     <background Color="red" />
+       <Avatar backgroundColor= 'red' size={40} />
      )
      case 1:
      return(
-       <background Color="yellow" />
+       <Avatar backgroundColor= 'yellow' size={40} />
       )
       default:
       return(
-        <background Color='green'/>
+        <Avatar backgroundColor= 'green' size={40} />
       )
     }
   }

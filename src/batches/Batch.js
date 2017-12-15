@@ -50,17 +50,12 @@ render() {
       const { batch } = this.props
       if (!batch) return null
 
-
-
-
-
-
   return(
     <div>
       <div className= 'list'>
           <List
           style={{
-             width: '50%',
+             width: '80%',
            }}>
           {batch.students.map((student) => (
             <ListItem
@@ -77,10 +72,8 @@ render() {
                 size={40}
               />
             }
-            RigthAvatar={
-              <Avatar backgroundColor= {student.currentColor}
-              size={40}
-            />}
+            rightAvatar={
+            <EvaluationColor currentColor= {student.currentColor} />}
             onClick={this.linkToStudent(student._id)}>
 
             </ListItem>

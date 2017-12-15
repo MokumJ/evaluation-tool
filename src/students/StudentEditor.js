@@ -30,7 +30,7 @@ class StudentEditor extends PureComponent {
         picture: this.refs.picture.getValue(),
         batchId: batchId,
         evaluations: [{}],
-        currentColor: "0",
+        currentColor: "2",
       }
       this.props.createStudent(student, batchId)
       this.refs.form.reset()
@@ -40,8 +40,6 @@ class StudentEditor extends PureComponent {
     return (
 
       <Paper zDepth={2}>
-
-
         <form onSubmit={this.submitForm.bind(this)} ref="form">
           <div className="input">
             <TextField ref="name" type="text" hintText="Full Name" id="name"/>
