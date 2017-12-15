@@ -18,6 +18,7 @@ import SvgIcon from 'material-ui/SvgIcon';
 import EvaluationColor from '../components/Colors'
 import { pickStudent } from '../actions/batches'
 import RaisedButton from 'material-ui/RaisedButton'
+import { pickColor } from '../actions/students'
 
 const studentShape = PropTypes.shape({
   evaluations: PropTypes.arrayOf(PropTypes.object),
@@ -42,6 +43,7 @@ export class Batch extends PureComponent {
     componentWillMount() {
        const { batchId } = this.props.match.params
         {this.props.fetchOneBatch(batchId)}
+
         //pickRandom Student function
   }
     linkToStudent = studentId => event => this.props.push(`/students/${studentId}`)
@@ -51,55 +53,70 @@ export class Batch extends PureComponent {
      this.props.pickStudent(batch)
    }
 
-render() {
+   pickColor() {
+     switch(this.props.currentColor){
+       case 0:
+       return(
+         'red'
+       )
+       case 1:
+       return(
+         'yellow'
+        )
+        default:
+        return(
+          'green'
+        )
+      }
+    }
 
+
+render() {
       const { batch } = this.props
       if (!batch) return null
 
-  return(
+    return(
     <div>
-      <div className= 'list'>
-          <List
-          style={{
-             width: '80%',
 
-           }}>
+        <List style={{  width: '80%' }}>
           {batch.students.map((student) => (
-            <ListItem
+          <ListItem
             key={student._id}
+            disabled={true}
             leftAvatar={
-            <EvaluationColor currentColor={student.currentColor} />}
+            <Avatar
+              src= {student.picture}
+              size={30}
+            />}
             primaryText= {student.name}
             style={{
-            margin: '20x',
-            padding: '0,6rem',
+              margin: '20x',
+             padding: '0,5rem',
             }}
             rightAvatar={
               <Avatar
-                src= {student.picture}
-                size={30}
-              />
-            }
-
+            backgroundColor= {pickColor(student.currentColor)} />}
             onClick={this.linkToStudent(student._id)}>
+
             </ListItem>
-            ))}
+          ))}
         </List>
         <p> {batch.pickStudent} </p>
-      </div>
+        <div className = "pick">
+        <RaisedButton
+        label="Pick Student"
+        primary={true}
+        onClick={ this.pickStudent.bind(this)}/>
+        </div>
+
+
         <div className = "editor" >
         <StudentEditor batchId= { batch._id}/>
-        <RaisedButton
-      label="Pick Student"
-      primary={true}
-      onClick={ this.pickStudent.bind(this)}
-      />
+        </div>
       </div>
-      </div>
-
-    )
+      )
+    }
   }
-}
 
     const mapStateToProps = ({ batches }, { match }) => {
     const batch = batches.filter((b) => (b._id === match.params.batchId))[0]
@@ -109,4 +126,4 @@ render() {
   }
 
 
-export default connect(mapStateToProps, { fetchOneBatch, push, pickStudent })(Batch)
+export default connect(mapStateToProps, { fetchOneBatch, push, pickStudent, pickColor })(Batch)
