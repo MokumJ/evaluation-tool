@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchOneStudent } from '../actions/students'
 import { fetchOneBatch } from '../actions/batches'
 import { updateStudent } from '../actions/students'
 import { push } from 'react-router-redux'
@@ -24,12 +23,12 @@ const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 class StudentPage extends PureComponent {
 
   componentWillMount() {
-    const { batch, fetchOneBatch } = this.props
-    const { batchId } = this.props.match.params
-    const { student, fetchOneStudent } = this.props
-    const { studentId } = this.props.match.params
-    if (!student) { fetchOneStudent(studentId) }
-  }
+  const { batch, fetchOneBatch } = this.props
+  const { batchId } = this.props.match.params
+
+  if (!batch) { fetchOneBatch(batchId) }
+}
+
 
   renderEvaluation = (evaluation, index) => {
     return (
@@ -45,8 +44,9 @@ class StudentPage extends PureComponent {
   backToBatch = batchId => event => this.props.push(`batch/${batchId}`)
 
   render() {
+    const { student } = this.props
+  		if (!student) return null
 
-  const  { student } = this.props
 
 
   return (
@@ -77,7 +77,7 @@ class StudentPage extends PureComponent {
 
         <footer>
         <div>
-         <Evaluation studentId={student._id} batchId={student.batchId} />
+         <Evaluation studentId={student} batchId={student.batchId} />
        </div>
         <RaisedButton
             onClick={ this.backToBatch() }
@@ -90,11 +90,23 @@ class StudentPage extends PureComponent {
   }
 }
 
-  const mapStateToProps = ({ students, batches }, { match }) => {
-   const student = students.filter((s) => (s._id === match.params.studentId))[0]
-  return {
-    student
-  }
-}
 
-export default connect(mapStateToProps, { fetchOneBatch, fetchOneStudent, push })(StudentPage)
+const mapStateToProps = ({ batches }, { match }) => {
+	const student = batches.reduce((prev, next) => {
+		if (next._id === match.params.batchId) {
+			return next.students.filter(s => s._id === match.params.studentId)[0];
+		}
+		return prev;
+	}, null);
+	const batch = batches.reduce((prev, next) => {
+		if (next._id === match.params.batchId) {
+			return next;
+		}
+		return prev;
+	}, null);
+
+	return { student, batch };
+};
+
+
+export default connect(mapStateToProps, { fetchOneBatch,  push })(StudentPage)

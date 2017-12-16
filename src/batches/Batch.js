@@ -50,7 +50,7 @@ export class Batch extends PureComponent {
 
         //pickRandom Student function
   }
-    linkToStudent = (batchId, studentId)=> event => this.props.push((`students-path/${batchId}/${studentId}`))
+    linkToStudent = (batchId, studentId)=> event => this.props.push((`/students-path/${batchId}/${studentId}`))
 
     pickStudent() {
      const { batch } = this.props
@@ -62,7 +62,7 @@ export class Batch extends PureComponent {
 render() {
     const { batch } = this.props
       if (!batch) return null
-
+    const { batchId } = this.props.match.params
     return(
     <div>
 
@@ -84,7 +84,7 @@ render() {
             rightAvatar={
            <Avatar backgroundColor = {student.currentColor} size = {30}/> }
 
-            onClick={this.linkToStudent(student._id)}>
+            onClick={this.linkToStudent(batch._id, student._id)}>
 
             </ListItem> </span>
           ))}
