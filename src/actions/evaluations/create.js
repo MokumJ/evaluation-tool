@@ -9,10 +9,14 @@ export const EVALUATION_CREATED = 'EVALUATION_CREATED'
 
 const api = new API()
 
-export default (body) => {
+export default (batch, studentId, evaluation, student) => {
   return (dispatch) => {
+
     dispatch({ type: APP_LOADING })
-    api.post('/evaluations', {...body})
+
+    const content = {batch, studentId, evaluation, student}
+
+    api.put(`batches/${batch._id}`, content)
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })

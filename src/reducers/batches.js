@@ -1,11 +1,11 @@
 import { FETCHED_BATCHES, FETCHED_ONE_BATCH, CREATE_BATCH } from '../actions/batches'
-
+import {CREATE_STUDENT} from '../actions/students'
 export default (state = [], { type, payload } = {}) => {
   switch(type) {
     case  FETCHED_BATCHES:
       return [ ...payload ]
 
-      
+
       case FETCHED_ONE_BATCH :
            const batchIds = state.map(b => b._id)
           if (batchIds.indexOf(payload._id) < 0) {
@@ -18,6 +18,14 @@ export default (state = [], { type, payload } = {}) => {
            }
          return batch
        })
+
+       case CREATE_STUDENT:
+     return state.map((batch) => {
+       if (batch._id === payload._id) {
+         return { ...payload }
+       }
+       return batch
+     })
     case CREATE_BATCH :
      const newBatch = { ...payload }
      return [newBatch].concat(state)

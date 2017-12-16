@@ -15,22 +15,19 @@ const buttonStyle = {
 }
 
 class StudentEditor extends PureComponent {
-  static propTypes = {
-    createStudent: PropTypes.func.isRequired,
-    batchId: PropTypes.string
-  }
-
-  state = {}
-
   submitForm(event) {
     event.preventDefault()
-      const { batchId } = this.props
+      const  { batchId } = this.props
       const student = {
         name: this.refs.name.getValue(),
         picture: this.refs.picture.getValue(),
         batchId: batchId,
-        evaluations: [{}],
-        currentColor: 2,
+        evaluation: [{
+          color: 'green',
+          remark: 'Good luck!',
+          date: Date.now
+        }],
+        currentColor: 'green',
       }
       this.props.createStudent(student, batchId)
       this.refs.form.reset()
@@ -58,6 +55,6 @@ class StudentEditor extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ student }) => ({ student })
+const mapStateToProps = ({ batches }, { match }) => ({ batches, match })
 
 export default connect(mapStateToProps, { createStudent })(StudentEditor)

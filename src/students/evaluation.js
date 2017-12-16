@@ -45,43 +45,31 @@ class Evaluation extends PureComponent {
 
   static propTypes = {
     evaluate: PropTypes.func.isRequired,
-    color: PropTypes.number,
-    studentId: PropTypes.string,
+    evaluation: PropTypes.shape({
+      color: PropTypes.string,
+      date: PropTypes.date,
+      remark: PropTypes.string,
+      studentId: PropTypes.string})
 }
 
   state = {}
 
+
   submitForm(event) {
-    event.preventDefault()
-      const { studentId, batchId } = this.props
-      const evaluation = {
-        color: this.state.value,
-        date: this.refs.date.getValue(),
-        remark: this.refs.remark.getValue()
-      }
-      this.props.evaluate(evaluation, studentId, batchId)
-      this.props.push(`/batches/${batchId}`)
-    }
-
-    submitNext(event) {
       event.preventDefault()
-      const { studentId, batchId } = this.props
-      const evaluation = {
-        color: this.state.value,
-        date: this.refs.date.getValue(),
-        remark: this.refs.remark.getValue()
+        const { studentId, batchId } = this.props
+        const evaluation = {
+          color: this.state.value,
+          date: this.refs.date.getValue(),
+          remark: this.refs.remark.getValue()
         }
-
-      this.props.evaluate(evaluation, studentId, batchId)
-      this.props.push(`/students/${this.props.students[(this.props.students.findIndex(
-        s=>s._id === studentId)+1)%this.props.students.length]._id}`)
+        this.props.evaluate(evaluation, studentId, batchId)
+        this.props.push(`batches/${batchId}`)
       }
-
-  handleChange = (value) => { this.setState({value}) }
 
   setColor = (value) => { this.setState({value}) }
 
-
+  handleChange = (value) => { this.setState({value}) }
   render() {
     return (
       <Paper style={ dialogStyle }>
@@ -90,9 +78,9 @@ class Evaluation extends PureComponent {
         <form onSubmit={this.submitForm.bind(this)} ref="form">
         <div className="input">
           <div className="colors" >
-            <div className="red" style={red} onClick={()=>this.setColor(0)}></div>
-            <div className="yellow" style={yellow} onClick={()=>this.setColor(1)}></div>
-            <div className="green" style={green} onClick={()=>this.setColor(2)}></div>
+            <div className="red" style={red} onClick={()=>this.setColor('red')}></div>
+            <div className="yellow" style={yellow} onClick={()=>this.setColor('yellow')}></div>
+            <div className="green" style={green} onClick={()=>this.setColor('green')}></div>
           </div>
           </div>
 
@@ -102,12 +90,15 @@ class Evaluation extends PureComponent {
           <div className="input">
             <h4>Date: </h4>
             <TextField ref="date" type="date" placeholder='Date' id="pickDate"
-              defaultValue={new Date()} />
+              defaultValue={new Date()}
+                  />
          </div>
         <div className="input">
           <h4>Remarks: </h4>
           <TextField ref="remark" type="text" placeholder='Remarks'
             id="remark"
+            defaultValue={this.state.remarks}
+
             multiLine={true}
             rows={2}
             rowsMax={4} />
@@ -126,4 +117,4 @@ class Evaluation extends PureComponent {
 
 const mapStateToProps = ({ students }) => ({ students })
 
-export default connect(mapStateToProps, { evaluate , push })(Evaluation)
+export default connect(mapStateToProps, { evaluate, push })(Evaluation)

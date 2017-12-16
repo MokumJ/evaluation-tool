@@ -21,13 +21,17 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { pickColor } from '../actions/students'
 
 const studentShape = PropTypes.shape({
-  evaluations: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   batchId: PropTypes.string.isRequired,
-  currentColor: PropTypes.number,
+  currentColor: PropTypes.string,
+  evaluation: PropTypes.arrayOf(evaluationShape)
 })
-
+const evaluationShape = PropTypes.shape({
+      color: PropTypes.string,
+      date: PropTypes.string,
+      remark: PropTypes.string,
+})
 
 export class Batch extends PureComponent {
   static propTypes = {
@@ -46,29 +50,13 @@ export class Batch extends PureComponent {
 
         //pickRandom Student function
   }
-    linkToStudent = studentId => event => this.props.push(`/students/${studentId}`)
+    linkToStudent = (batchId, studentId)=> event => this.props.push((`students-path/${batchId}/${studentId}`))
 
     pickStudent() {
      const { batch } = this.props
      this.props.pickStudent(batch)
    }
 
-   pickColor() {
-     switch(this.props.currentColor){
-       case 0:
-       return(
-         'red'
-       )
-       case 1:
-       return(
-         'yellow'
-        )
-        default:
-        return(
-          'green'
-        )
-      }
-    }
 
 
 render() {
@@ -80,7 +68,7 @@ render() {
 
         <List style={{  width: '80%' }}>
           {batch.students.map((student) => (
-          <ListItem
+        <span>  <ListItem
             key={student._id}
             disabled={true}
             leftAvatar={
@@ -90,14 +78,15 @@ render() {
             />}
             primaryText= {student.name}
             style={{
-            margin: '20x',
+              margin: '20x',
              padding: '0,5rem',
             }}
             rightAvatar={
-           <EvaluationColor currentColor={student.currentColor} />}
+           <Avatar backgroundColor = {student.currentColor} size = {30}/> }
+
             onClick={this.linkToStudent(student._id)}>
 
-            </ListItem>
+            </ListItem> </span>
           ))}
         </List>
         <p> {batch.pickStudent} </p>

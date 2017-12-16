@@ -11,11 +11,11 @@ export const EVALUATE = 'EVALUATE'
 
 const api = new API()
 
-export default (evaluate, studentId, batchId) => {
+export default (batch, evaluate, studentId, batchId) => {
 return dispatch => {
   dispatch({ type: APP_LOADING })
 
- api.patch(`/students/${studentId}`, evaluate)
+ api.put(`/batches/${batch._id}`, batch, evaluate, studentId, batchId)
     .then((result) => {
       dispatch({ type: APP_DONE_LOADING })
       dispatch({ type: LOAD_SUCCESS })
