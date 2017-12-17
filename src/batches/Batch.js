@@ -19,6 +19,7 @@ import EvaluationColor from '../components/Colors'
 import { pickStudent } from '../actions/batches'
 import RaisedButton from 'material-ui/RaisedButton'
 import { pickColor } from '../actions/students'
+import { ActionAccessibility, ActionAccessible, ActionAccountBalance } from 'material-ui/svg-icons'
 
 const studentShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
@@ -78,18 +79,43 @@ export class Batch extends PureComponent {
       console.log(this.state.luckyOne)
     }
 
+    showPercentage() {
+        const { batch } = this.props
+        const evaluation = batch.students.map(s => s.evaluation)
+        const colors1 = evaluation.map(e => e.map(e => e.color))
+        const colors2 = [].concat(...colors1)
+        const perc = (color) => {
+        const occ = colors2.filter(c => c === color).length
+          return ( occ / colors2.length * 100 ) + "%"
+          console.log(occ)
+        }
+    return (
+  <div className="avgScore">
+    <h3>Average Score: </h3>
+    <div className="green" style={{width: perc("green")}}> </div>
+    <div className="yellow" style={{width: perc("yellow")}}></div>
+    <div className="red" style={{width: perc("red")}}></div>
+
+  </div>
+)
+}
+
 render() {
     const { batch } = this.props
       if (!batch) return null
     const { batchId } = this.props.match.params
     return(
     <div>
-
-        <List style={{  width: '80%' }}>
+      {
+           batch ? this.showPercentage() : null
+         }
+         <div className= "list">
+        <List style={{  width: '60%',
+                        marginTop: '300x'}}>
           {batch.students.map((student) => (
         <span>  <ListItem
             key={student._id}
-            disabled={true}
+
             leftAvatar={
             <Avatar
               src= {student.picture}
@@ -97,7 +123,7 @@ render() {
             />}
             primaryText= {student.name}
             style={{
-              margin: '20x',
+              margin: '50x',
              padding: '0,5rem',
             }}
             rightAvatar={
@@ -107,15 +133,21 @@ render() {
 
             </ListItem> </span>
           ))}
-        </List>
-        <p> {this.state.luckyOne} </p>
-        <div className = "pick">
-        <RaisedButton
-        label="Pick Student"
-        primary={true}
-        onClick={ this.getRandom.bind(this)}/>
-        </div>
 
+      <span>  <ListItem
+        style={{
+          margin: '50x',
+         padding: '0,1rem',}}
+        primaryText= {<p> pick Student: -----------------   {this.state.luckyOne} </p>}
+        leftIcon={
+       <ActionAccessibility
+       tooltipPosition="bottom-left"
+       size= {30}/>}
+        onClick={ this.getRandom.bind(this)} >
+        </ListItem> </span>
+
+        </List>
+        </div>
 
         <div className = "editor" >
         <StudentEditor batchId= { batch._id}/>
