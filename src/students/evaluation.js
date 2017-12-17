@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { evaluate } from '../actions/evaluations'
+import { createEvaluation } from '../actions/evaluations'
 import PropTypes from 'prop-types'
 import Title from '../components/UI/Title'
 import Paper from 'material-ui/Paper'
@@ -44,12 +44,8 @@ const buttonStyle = {
 class Evaluation extends PureComponent {
 
   static propTypes = {
+
     evaluate: PropTypes.func.isRequired,
-    evaluation: PropTypes.shape({
-      color: PropTypes.string,
-      date: PropTypes.date,
-      remark: PropTypes.string,
-      studentId: PropTypes.string})
 }
 
   state = {}
@@ -57,14 +53,17 @@ class Evaluation extends PureComponent {
 
   submitForm(event) {
       event.preventDefault()
-        const { studentId, batchId } = this.props
+      const { studentId, batchId } = this.props
         const evaluation = {
           color: this.state.value,
           date: this.refs.date.getValue(),
           remark: this.refs.remark.getValue()
         }
-        this.props.evaluate(evaluation, studentId, batchId)
-        this.props.push(`batches/${batchId}`)
+        console.table(evaluation)
+  console.log(studentId)
+  console.log(batchId)
+        this.props.createEvaluation( batchId, studentId, evaluation  )
+
       }
 
   setColor = (value) => { this.setState({value}) }
@@ -107,7 +106,7 @@ class Evaluation extends PureComponent {
 
         <RaisedButton
           style={ buttonStyle }
-          onClick={ this.submitForm.bind(this) }
+          onClick={ this.submitForm.bind( this) }
           label="Evaluate"
           primary={true} />
       </Paper>
@@ -115,6 +114,6 @@ class Evaluation extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ students }) => ({ students })
+const mapStateToProps = ({ batches }, { match }) => ({ batches, match })
 
-export default connect(mapStateToProps, { evaluate, push })(Evaluation)
+export default connect(mapStateToProps, { createEvaluation, push })(Evaluation)

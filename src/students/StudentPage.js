@@ -8,6 +8,9 @@ import { push } from 'react-router-redux'
 import Evaluation from './Evaluation'
 import Title from '../components/Title'
 import './StudentPage.css'
+import Paper from 'material-ui/Paper'
+import TextField from 'material-ui/TextField'
+import { createEvaluation } from '../actions/evaluations'
 import RaisedButton from 'material-ui/RaisedButton'
 import EvaluationColor from '../components/Colors'
 import {
@@ -18,6 +21,37 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+
+const red = {
+  display: 'flex',
+  height: '50px',
+  width: '50px',
+  backgroundColor: 'red',
+}
+const yellow = {
+  height: '50px',
+  width: '50px',
+  backgroundColor: 'yellow',
+}
+const green = {
+  height: '50px',
+  width: '50px',
+  backgroundColor: 'green',
+}
+
+const dialogStyle = {
+  width: '470px',
+  height: '550px',
+  margin: '20px',
+  padding: '2rem',
+}
+
+const button1 = {
+  float: 'left',
+}
+const buttonStyle = {
+  float: 'center',
+}
 const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 
 class StudentPage extends PureComponent {
@@ -30,6 +64,7 @@ class StudentPage extends PureComponent {
 }
 
 
+
   renderEvaluation = (evaluation, index) => {
     return (
        <TableRow key={index}>
@@ -40,11 +75,35 @@ class StudentPage extends PureComponent {
     )
   }
 
+  state = {}
+
+
+  submitForm(event) {
+      event.preventDefault()
+      const batchId = this.props.match.params.batchId
+    	const studentId = this.props.match.params.studentId
+      const student = this.props.student
+        const evaluation = {
+          color: this.state.value,
+          date: this.refs.date.getValue(),
+          remark: this.refs.remark.getValue()
+        }
+        console.table(evaluation)
+        console.log(studentId)
+        console.log(batchId)
+        this.props.createEvaluation( batchId, studentId, evaluation, student )
+
+      }
+
+  setColor = (value) => { this.setState({value}) }
+
+  handleChange = (value) => { this.setState({value}) }
+
 
   backToBatch = batchId => event => this.props.push(`batch/${batchId}`)
 
   render() {
-    const { student } = this.props
+    const { student, batch } = this.props
   		if (!student) return null
 
 
@@ -77,10 +136,51 @@ class StudentPage extends PureComponent {
 
         <footer>
         <div>
-         <Evaluation studentId={student} batchId={student.batchId} />
+        <Paper style={ dialogStyle }>
+          <Title content="" level={2} />
+
+          <form onSubmit={this.submitForm.bind(this, batch._id, student._id )} ref="form">
+          <div className="input">
+            <div className="colors" >
+              <div className="red" style={red} onClick={()=>this.setColor('red')}></div>
+              <div className="yellow" style={yellow} onClick={()=>this.setColor('yellow')}></div>
+              <div className="green" style={green} onClick={()=>this.setColor('green')}></div>
+            </div>
+            </div>
+
+           <h4>Evaluate: {(this.state.value)}
+
+              </h4>
+            <div className="input">
+              <h4>Date: </h4>
+              <TextField ref="date" type="date" placeholder='Date' id="pickDate"
+                defaultValue={new Date()}
+                    />
+           </div>
+          <div className="input">
+            <h4>Remarks: </h4>
+            <TextField ref="remark" type="text" placeholder='Remarks'
+              id="remark"
+              defaultValue={this.state.remarks}
+
+              multiLine={true}
+              rows={2}
+              rowsMax={4} />
+          </div>
+          </form>
+
+          <RaisedButton
+            style={ buttonStyle }
+            onClick={ this.submitForm.bind( this) }
+            label="Evaluate"
+            primary={true} />
+        </Paper>
+      )
+    }
+  }
        </div>
         <RaisedButton
-            onClick={ this.backToBatch() }
+            onClick={ this.backToBatch(batch._id) }
             label="Back"
             primary={true} />
         </footer>
@@ -109,4 +209,4 @@ const mapStateToProps = ({ batches }, { match }) => {
 };
 
 
-export default connect(mapStateToProps, { fetchOneBatch,  push })(StudentPage)
+export default connect(mapStateToProps, { fetchOneBatch,  push , createEvaluation})(StudentPage)

@@ -25,7 +25,7 @@ class StudentEditor extends PureComponent {
         evaluation: [{
           color: 'green',
           remark: 'Good luck!',
-          date: Date.now
+          date: Date.now(0,10)
         }],
         currentColor: 'green',
       }

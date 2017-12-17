@@ -5,24 +5,24 @@ import {
   LOAD_ERROR,
   LOAD_SUCCESS
 } from '../loading'
-export const EVALUATION_CREATED = 'EVALUATION_CREATED'
+export const CREATE_EVALUATION = 'CREATE_EVALUATION'
 
 const api = new API()
 
-export default (batch, studentId, evaluation, student) => {
+export default ( batchId, studentId, evaluation, student) => {
   return (dispatch) => {
 
     dispatch({ type: APP_LOADING })
 
-    const content = {batch, studentId, evaluation, student}
+    const content = {batchId, studentId, student, evaluation}
 
-    api.put(`batches/${batch._id}`, content)
+    api.put(`batches/${batchId}`, content)
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
 
         dispatch({
-          type: EVALUATION_CREATED,
+          type: CREATE_EVALUATION,
           payload: result.body
         })
 

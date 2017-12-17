@@ -16,7 +16,7 @@ export default (studentId, batch) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-    api.put(`/students/${studentId}`, batch)
+    api.put(`students/${studentId}`, batch)
       .then((result) => {
       dispatch({ type: APP_DONE_LOADING })
       dispatch({ type: LOAD_SUCCESS })
