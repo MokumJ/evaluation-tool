@@ -7,19 +7,18 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 import { fetchOneBatch } from '../batches/fetch'
+
 export const CREATE_STUDENT = 'CREATE_STUDENT'
 
 const api = new API()
 
 export default (student, batchId) => {
   return (dispatch) => {
-    dispatch({ type: APP_LOADING })
-
-    api.post('students', student)
-      .then(() => {
+    api.patch(`batches/${batchId}`, student, batchId)
+      .then(res => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-        dispatch(fetchOneBatch(batchId))
+        dispatch({ type: CREATE_STUDENT, payload: res.body })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
