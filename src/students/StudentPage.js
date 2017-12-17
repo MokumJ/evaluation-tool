@@ -3,16 +3,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchOneBatch } from '../actions/batches'
-import { updateStudent } from '../actions/students'
+import { updateStudent, deleteStudent } from '../actions/students'
 import { push } from 'react-router-redux'
-import Evaluation from './Evaluation'
 import Title from '../components/Title'
 import './StudentPage.css'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import { createEvaluation } from '../actions/evaluations'
 import RaisedButton from 'material-ui/RaisedButton'
-import EvaluationColor from '../components/Colors'
+
 import {
   Table,
   TableBody,
@@ -99,13 +98,21 @@ class StudentPage extends PureComponent {
 
   handleChange = (value) => { this.setState({value}) }
 
+  deleteStudent= () => {
+    const { deleteStudent, student } = this.props
+    const batchId = this.props.match.params.batchId
+    const studentId = this.props.match.params.studentId;
+    deleteStudent(batchId , studentId)
+  }
 
-  backToBatch = (batchId, studentId) => event => this.props.push(`batch/${batchId}`)
+
+
+  backToBatch = (batchId) => event => this.props.push(`/batch/${batchId}`)
 
   render() {
     const { student, batch } = this.props
   		if (!student) return null
-
+    const { batchId } = this.props.match.params.batchId
 
 
   return (
@@ -114,7 +121,6 @@ class StudentPage extends PureComponent {
         <header>
           <Title content={ student.name } className="level-2" />
           <div className="color">
-        <EvaluationColor currentColor={student.currentColor} />}
           </div>
           <div
             className="cover"
@@ -175,14 +181,15 @@ class StudentPage extends PureComponent {
             label="Evaluate"
             primary={true} />
         </Paper>
-      )
-    }
-  }
        </div>
         <RaisedButton
-            onClick={ this.backToBatch(batch._id) }
+            onClick={ this.backToBatch(batchId) }
             label="Back"
             primary={true} />
+            <RaisedButton
+                onClick={ this.deleteStudent }
+                label="Delete Student"
+                primary={true} />
         </footer>
       </article>
 
@@ -209,4 +216,4 @@ const mapStateToProps = ({ batches }, { match }) => {
 };
 
 
-export default connect(mapStateToProps, { fetchOneBatch,  push , createEvaluation})(StudentPage)
+export default connect(mapStateToProps, { fetchOneBatch,  push , createEvaluation, deleteStudent})(StudentPage)
