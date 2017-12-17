@@ -41,9 +41,18 @@ export class Batch extends PureComponent {
       students: PropTypes.arrayOf(studentShape),
       startDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired,
+      luckyOne: PropTypes.string.isRequired,
+      students: PropTypes.arrayOf(studentShape),
       pickStudent: PropTypes.array,
       })
   }
+  constructor(props) {
+		super(props);
+		this.state = {
+			LuckyOne: null,
+
+		};
+	}
     componentWillMount() {
        const { batchId } = this.props.match.params
         {this.props.fetchOneBatch(batchId)}
@@ -53,11 +62,21 @@ export class Batch extends PureComponent {
     linkToStudent = (batchId, studentId)=> event => this.props.push((`/students-path/${batchId}/${studentId}`))
 
     pickStudent() {
-     const { batch } = this.props
-     this.props.pickStudent(batch)
-   }
+      const { batch } = this.props
+      const reds = batch.students.filter(s => s.evaluation[s.evaluation.length -1].color === "red")
+      const yellows = batch.students.filter(s => s.evaluation[s.evaluation.length -1].color === "yellow")
+      const greens = batch.students.filter(s => s.evaluation[s.evaluation.length -1].color === "green")
+      const poul = [reds, reds, reds, yellows, yellows, greens]
+      return [].concat(...poul)
+    }
 
-
+    getRandom() {
+      const poul = this.pickStudent()
+      const luckyOne = (poul[Math.floor(Math.random()*poul.length)])
+      this.setState({
+      luckyOne: luckyOne.name})
+      console.log(this.state.luckyOne)
+    }
 
 render() {
     const { batch } = this.props
@@ -82,19 +101,19 @@ render() {
              padding: '0,5rem',
             }}
             rightAvatar={
-           <Avatar backgroundColor = {student.currentColor} size = {30}/> }
+           <Avatar backgroundColor = {student.evaluation[student.evaluation.length-1].color} size = {30}/> }
 
             onClick={this.linkToStudent(batch._id, student._id)}>
 
             </ListItem> </span>
           ))}
         </List>
-        <p> {batch.pickStudent} </p>
+        <p> {this.state.luckyOne} </p>
         <div className = "pick">
         <RaisedButton
         label="Pick Student"
         primary={true}
-        onClick={ this.pickStudent.bind(this)}/>
+        onClick={ this.getRandom.bind(this)}/>
         </div>
 
 

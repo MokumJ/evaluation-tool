@@ -22,12 +22,12 @@ export default (state = [], { type, payload } = {}) => {
        })
 
        case CREATE_STUDENT:
-     return state.map((batch) => {
-       if (batch._id === payload._id) {
-         return { ...payload }
-       }
-       return batch
-     })
+     return state.map(batch => {
+				if (batch._id === payload._id) {
+					return { ...batch, students: payload.students };
+				}
+				return batch;
+			});
 
      case CREATE_EVALUATION:
      return state.map((batch) => {

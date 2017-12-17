@@ -27,7 +27,6 @@ class StudentEditor extends PureComponent {
           remark: 'Good luck!',
           date: Date.now(0,10)
         }],
-        currentColor: 'green',
       }
       this.props.createStudent(student, batchId)
       this.refs.form.reset()

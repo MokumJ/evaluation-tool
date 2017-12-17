@@ -100,7 +100,7 @@ class StudentPage extends PureComponent {
   handleChange = (value) => { this.setState({value}) }
 
 
-  backToBatch = batchId => event => this.props.push(`batch/${batchId}`)
+  backToBatch = (batchId, studentId) => event => this.props.push(`batch/${batchId}`)
 
   render() {
     const { student, batch } = this.props
