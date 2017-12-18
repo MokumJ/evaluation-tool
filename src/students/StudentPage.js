@@ -67,7 +67,7 @@ class StudentPage extends PureComponent {
   renderEvaluation = (evaluation, index) => {
     return (
        <TableRow key={index}>
-        <TableRowColumn>{evaluation.color}</TableRowColumn>
+        <TableRowColumn><div className={evaluation.color}></div></TableRowColumn>
         <TableRowColumn>{evaluation.remark}</TableRowColumn>
         <TableRowColumn>{evaluation.date}</TableRowColumn>
       </TableRow>
@@ -100,19 +100,20 @@ class StudentPage extends PureComponent {
 
   deleteStudent= () => {
     const { deleteStudent, student } = this.props
-    const batchId = this.props.match.params.batchId
-    const studentId = this.props.match.params.studentId;
+    const {batchId }= this.props.match.params.batchId
+    const {studentId} = this.props.match.params.studentId;
     deleteStudent(batchId , studentId)
   }
 
 
 
-  backToBatch = (batchId) => event => this.props.push(`/batch/${batchId}`)
+  backToBatch = (batchId, studentId) => event => this.props.push(`/batches/${batchId}`)
 
   render() {
     const { student, batch } = this.props
   		if (!student) return null
     const { batchId } = this.props.match.params.batchId
+    const { studentId } = this.props.match.params.studentId;
 
 
   return (
@@ -183,7 +184,7 @@ class StudentPage extends PureComponent {
         </Paper>
        </div>
         <RaisedButton
-            onClick={ this.backToBatch(batchId) }
+            onClick={ this.backToBatch(batch._id) }
             label="Back"
             primary={true} />
             <RaisedButton
