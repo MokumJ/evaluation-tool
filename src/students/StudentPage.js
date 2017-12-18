@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchOneBatch } from '../actions/batches'
-import { updateStudent, deleteStudent } from '../actions/students'
+import { deleteStudent } from '../actions/students'
 import { push } from 'react-router-redux'
 import Title from '../components/Title'
 import './StudentPage.css'
@@ -45,13 +45,9 @@ const dialogStyle = {
   padding: '2rem',
 }
 
-const button1 = {
-  float: 'left',
-}
 const buttonStyle = {
   float: 'center',
 }
-const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
 
 class StudentPage extends PureComponent {
 
@@ -61,8 +57,6 @@ class StudentPage extends PureComponent {
 
   if (!batch) { fetchOneBatch(batchId) }
 }
-
-
 
   renderEvaluation = (evaluation, index) => {
     return (
@@ -87,25 +81,19 @@ class StudentPage extends PureComponent {
           date: this.refs.date.getValue(),
           remark: this.refs.remark.getValue()
         }
-        console.table(evaluation)
-        console.log(studentId)
-        console.log(batchId)
         this.props.createEvaluation( batchId, studentId, evaluation, student )
-
       }
 
-  setColor = (value) => { this.setState({value}) }
+      setColor = (value) => { this.setState({value}) }
 
-  handleChange = (value) => { this.setState({value}) }
+      handleChange = (value) => { this.setState({value}) }
 
   deleteStudent= () => {
     const { deleteStudent, student } = this.props
-    const {batchId }= this.props.match.params.batchId
-    const {studentId} = this.props.match.params.studentId;
-    deleteStudent(batchId , studentId)
+    const batchId = this.props.match.params.batchId
+    const studentId = this.props.match.params.studentId;
+    deleteStudent(batchId, studentId)
   }
-
-
 
   backToBatch = (batchId, studentId) => event => this.props.push(`/batches/${batchId}`)
 
@@ -123,23 +111,22 @@ class StudentPage extends PureComponent {
           <Title content={ student.name } className="level-2" />
           <div className="color">
           </div>
-          <div
-            className="cover"
-             style={{backgroundImage:`url(${ student.picture })`}}/>
+          <div className="cover"
+                style={{backgroundImage:`url(${ student.picture })`}}/>
 
         </header>
         <Table>
-                  <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                    <TableRow>
-                       <TableHeaderColumn>Evaluation</TableHeaderColumn>
-                       <TableHeaderColumn>Remarks</TableHeaderColumn>
-                       <TableHeaderColumn>date</TableHeaderColumn>
-                     </TableRow>
-                  </TableHeader>
-                  <TableBody displayRowCheckbox={false}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>Evaluation</TableHeaderColumn>
+              <TableHeaderColumn>Remarks</TableHeaderColumn>
+              <TableHeaderColumn>date</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+                <TableBody displayRowCheckbox={false}>
                     {student.evaluation.map(this.renderEvaluation)}
-                  </TableBody>
-                </Table>
+                </TableBody>
+            </Table>
 
         <footer>
         <div>
@@ -164,18 +151,16 @@ class StudentPage extends PureComponent {
                 defaultValue={new Date()}
                     />
            </div>
-          <div className="input">
+           <div className="input">
             <h4>Remarks: </h4>
             <TextField ref="remark" type="text" placeholder='Remarks'
               id="remark"
               defaultValue={this.state.remarks}
-
               multiLine={true}
               rows={2}
               rowsMax={4} />
           </div>
           </form>
-
           <RaisedButton
             style={ buttonStyle }
             onClick={ this.submitForm.bind( this) }
@@ -187,17 +172,16 @@ class StudentPage extends PureComponent {
             onClick={ this.backToBatch(batch._id) }
             label="Back"
             primary={true} />
-            <RaisedButton
-                onClick={ this.deleteStudent }
-                label="Delete Student"
-                primary={true} />
-        </footer>
-      </article>
+        <RaisedButton
+            onClick={ this.deleteStudent }
+            label="Delete Student"
+            primary={true} />
+      </footer>
+    </article>
 
     )
   }
 }
-
 
 const mapStateToProps = ({ batches }, { match }) => {
 	const student = batches.reduce((prev, next) => {
@@ -215,6 +199,5 @@ const mapStateToProps = ({ batches }, { match }) => {
 
 	return { student, batch };
 };
-
 
 export default connect(mapStateToProps, { fetchOneBatch,  push , createEvaluation, deleteStudent})(StudentPage)
