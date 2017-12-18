@@ -22,7 +22,7 @@ const buttonStyle = {
 class BatchEditor extends PureComponent {
   static propTypes = {
     createBatch: PropTypes.func.isRequired,
-  }
+}
 
   submitForm(event) {
     event.preventDefault()
@@ -40,19 +40,23 @@ class BatchEditor extends PureComponent {
       <Paper style= { dialogStyle }>
 
         <form onSubmit={this.submitForm.bind(this)} ref="batchEditor">
-          <div className="input">
 
+          <div className="input">
             <TextField ref="number" type="number" placeholder="batch number" />
           </div>
+
           <div className="input">
               <p> Start Date: </p>
             <TextField hintText = "Start Date" ref="startdate" type="date"/>
-         </div>
+          </div>
+
          <div className="input">
           <p> End Date: </p>
            <TextField hintText = "End Date" ref="enddate" type="date"/>
-        </div>
+         </div>
+
         </form>
+        
         <RaisedButton
           style={ buttonStyle }
           onClick={ this.submitForm.bind(this) }
