@@ -21,6 +21,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { pickColor } from '../actions/students'
 import { ActionAccessibility, ActionAccessible, ActionAccountBalance } from 'material-ui/svg-icons'
 
+
+
 const studentShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
@@ -137,11 +139,14 @@ render() {
       <span>  <ListItem
         style={{
           margin: '50x',
-         padding: '0,1rem',}}
-        primaryText= {<p> pick Student: -----------------   {this.state.luckyOne} </p>}
+         padding: '0,5rem',
+
+        }}
+        verticalAlign='middle'
+        primaryText=  {<p> pick Student: --------------------->   {this.state.luckyOne}</p>}
         leftIcon={
        <ActionAccessibility
-       tooltipPosition="bottom-left"
+      tooltipPosition="bottom-left"
        size= {30}/>}
         onClick={ this.getRandom.bind(this)} >
         </ListItem> </span>

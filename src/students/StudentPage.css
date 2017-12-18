@@ -20,16 +20,34 @@ article.StudentItem {
     align-items: flex-end;
     display: flex;
     flex: 1; }
-  article.StudentItem header .cover {
-    height: 240px;
-    background-size: 300px;
-    background-position: center center;
-    overflow: hidden;
-    margin-bottom: 54px; }
-    article.StudentItem header .cover img {
-      height: 280px; }
-  article.StudentItem header h1 {
-    margin: 20px 0; }
-  article.StudentItem .categories {
-    margin: -60px 20px 0 0;
-    float: right; }
+
+.cover {
+  height: 240px;
+  background-size: 300px;
+  background-position: center;
+  margin-bottom: 54px; }
+
+img {
+  height: 280px; }
+
+h1 {
+  margin: 20px 0; }
+
+.categories {
+  margin: -60px 20px 0 0;
+  float: right; }
+
+.red {
+  height: 50px;
+  width: 50px;
+  backgroundColor: 'red'; }
+
+.yellow {
+  height: 50px;
+  width: 50px;
+  backgroundColor: 'yellow'; }
+
+.green {
+  height: 50px;
+  width: 50px;
+  backgroundColor: 'green'; }
