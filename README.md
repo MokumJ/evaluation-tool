@@ -19,7 +19,7 @@ The final assignment for Codaiseur Academy was to build an Evaluation Tool for T
 Make sure you have [Yarn](https://yarnpkg.com/en/) and [NodeJS](https://nodejs.org/en/) installed.
 
 ```bash
-git clone git@github.com:LiannevW/evaluation-tool.git
+git clone git@github.com:MokumJ/evaluation-tool.git
 yarn install
 yarn start
 ```
