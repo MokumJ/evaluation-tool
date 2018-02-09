@@ -94,7 +94,7 @@ export class Batch extends PureComponent {
     const { batch } = this.props
     if (!batch) return null
     const { batchId } = this.props.match.params
-
+    console.log(batch)
     return(
     <div>
       {batch ? this.showPercentageBar() : null}
