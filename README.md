@@ -12,14 +12,14 @@ The final assignment for Codaiseur Academy was to build an Evaluation Tool for T
 
 # Preview
 <img src="https://github.com/MokumJ/evaluation-tool/blob/master/src/fixtures/Preview_evaluationtool1.png" width="300" height="200" />
-<img src="https://github.com/MokumJ/evaluation-tool/blob/master/src/fixtures/Preview_evaluationtool2.png" width="300" height="200" />
+<img src="https://github.com/MokumJ/evaluation-tool/blob/master/src/fixtures/preview_evaluationtool2.png" width="300" height="200" />
 
 # Running Locally
 
 Make sure you have [Yarn](https://yarnpkg.com/en/) and [NodeJS](https://nodejs.org/en/) installed.
 
 ```bash
-git clone git@github.com:LiannevW/evaluation-tool.git
+git clone git@github.com:MokumJ/evaluation-tool.git
 yarn install
 yarn start
 ```
